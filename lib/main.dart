@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -19,58 +18,110 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Firebase Demo'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await FirebaseFirestore.instance
-              .collection('testing')
-              .add({'timestamp': Timestamp.fromDate(DateTime.now())});
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('testing').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(); // Loading indicator while data is being fetched
-          }
-
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text('No data available'),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              final docData =
-                  snapshot.data!.docs[index].data() as Map<String, dynamic>;
-              final dateTime = (docData['timestamp'] as Timestamp).toDate();
-              return ListTile(
-                title: Text(dateTime.toString()),
-              );
-            },
-          );
-        },
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('POS System'),
+          backgroundColor: Colors.lightBlueAccent,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: SizedBox(
+                height: 50,
+                width: 150,
+                child: TextField(
+                  style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                      ),
+                  readOnly: false,
+                  cursorHeight: 20,
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.add),
+                    labelText: 'Product Name',
+                    labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: SizedBox(
+                height: 50,
+                width: 150,
+                child: TextField(
+                  style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                      ),
+                  readOnly: false,
+                  cursorHeight: 20,
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.add),
+                    labelText: 'Product Qty',
+                    labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: SizedBox(
+                height: 50,
+                width: 150,
+                child: TextField(
+                  style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                      ),
+                  readOnly: false,
+                  cursorHeight: 20,
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.add),
+                    labelText: 'Category',
+                    labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: SizedBox(
+                height: 50,
+                width: 150,
+                child: TextField(
+                  style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                      ),
+                  readOnly: false,
+                  cursorHeight: 20,
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.add),
+                    labelText: 'Price',
+                    labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Save'),
+            ),
+          ],
+        ),
       ),
     );
   }
