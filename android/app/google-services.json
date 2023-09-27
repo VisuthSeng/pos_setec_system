@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38512560229",
+    "project_id": "pos-setec-system-5c62f",
+    "storage_bucket": "pos-setec-system-5c62f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38512560229:android:aa4521737efdd43f271e8c",
+        "android_client_info": {
+          "package_name": "com.pos_setec_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtr_Kl-2Y63D2bgP8f7AGax06c4u7JWy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
