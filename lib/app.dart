@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/presentation/screen/customer_screen.dart';
-import 'package:pos_setec_system/presentation/screen/home_screen.dart';
+import 'package:pos_setec_system/presentation/screen/customer/customer_screen.dart';
+import 'package:pos_setec_system/presentation/screen/category/category_screen.dart';
+import 'package:pos_setec_system/presentation/screen/setec/pos_system_setec_screen.dart';
+import 'package:pos_setec_system/presentation/screen/home/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,15 +11,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      transitionDuration: const Duration(milliseconds: 700),
+      defaultTransition: Transition.fade,
+      debugShowCheckedModeBanner: false,
+      title: 'SETEC POS SYSTEM',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+          scaffoldBackgroundColor: Colors.deepPurple,
+          primarySwatch: Colors.blue,
+          primaryColor: Colors.blue),
+      builder: (context, page) => HomeScreen(
+        child: page!,
       ),
       initialRoute: '/', // Define the initial route
+
       getPages: [
-        GetPage(name: '/', page: () => const HomeScreen()),
-        GetPage(name: '/customer', page: () => const CustomerScreen()),
+        GetPage(
+          name: '/',
+          page: () => const SETECScreen(),
+        ),
+        GetPage(
+          name: '/category',
+          page: () => const CategoryScreen(),
+        ),
+        GetPage(
+          name: '/customer',
+          page: () => const CustomerScreen(),
+        ),
       ],
     );
   }

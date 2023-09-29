@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pos_setec_system/core/firestore_collection.dart';
+import 'package:pos_setec_system/data/firebase/firestore_collection.dart';
 import 'package:pos_setec_system/data/model/customer_model.dart';
 
 abstract class ICustomerRepository {

@@ -45,9 +45,10 @@ class TextboxSearch extends StatelessWidget {
         children: [
           Flexible(
             child: TextField(
-              style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
-                    fontSize: FontSize.textbox,
-                  ),
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .bodyLarge!
+                  .copyWith(fontSize: FontSize.textbox, color: Colors.black),
               keyboardType: keyboard,
               readOnly: isReadOnly,
               // enabled: isEnabled,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/core/util/Uid.dart';
 import 'package:pos_setec_system/data/model/customer_model.dart';
+import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
 import 'package:pos_setec_system/presentation/widget/numberbox.dart';
 import 'package:pos_setec_system/presentation/widget/textbox.dart';
@@ -17,6 +18,7 @@ class CustomerScreen extends StatefulWidget {
 
 class _CustomerScreenState extends State<CustomerScreen> {
   final CustomerController customerController = Get.find();
+  final CategoryController categoryController = Get.find();
 
   late TextEditingController tecName;
   late TextEditingController tecPhone;
