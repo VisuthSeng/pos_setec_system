@@ -21,14 +21,15 @@ class ButtonIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
-        minimumSize: Size(width ?? 60, height ?? 50),
+        minimumSize: Size(width ?? 45, height ?? 30),
       ),
       child: Icon(
         icon,
-        size: iconSize ?? 18,
+        size: iconSize ?? 20,
         color: iconColor ?? Theme.of(context).primaryColor,
       ),
       onPressed: () {

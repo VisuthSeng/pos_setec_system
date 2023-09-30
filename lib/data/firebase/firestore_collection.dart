@@ -7,6 +7,12 @@ class FirestoreCollection {
       FirebaseFirestore.instance.collection('customer');
   static CollectionReference category =
       FirebaseFirestore.instance.collection('category');
+  static CollectionReference product =
+      FirebaseFirestore.instance.collection('product');
+  static CollectionReference sale =
+      FirebaseFirestore.instance.collection('sale');
+  static CollectionReference saleDetail =
+      FirebaseFirestore.instance.collection('saleDetail');
 
   //auto number
   static DocumentReference customerCode =
