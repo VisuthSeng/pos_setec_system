@@ -8,15 +8,15 @@ import 'package:pos_setec_system/presentation/widget/custom_text.dart';
 
 AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
     AppBar(
-      leading: IconButton(
-          onPressed: () {
-            key.currentState!.openDrawer();
-          },
-          icon: const Icon(
-            Icons.menu,
-            color: Colors.red,
-          )),
-      elevation: 0,
+      // leading: IconButton(
+      //     onPressed: () {
+      //       key.currentState!.openDrawer();
+      //     },
+      //     icon: const Icon(
+      //       Icons.menu,
+      //       color: Colors.red,
+      //     )),
+      // elevation: 0,
       title: Row(
         children: [
           const Visibility(

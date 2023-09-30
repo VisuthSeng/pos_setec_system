@@ -7,6 +7,7 @@ import 'package:pos_setec_system/presentation/widget/textbox_search.dart';
 class FormListTitle extends StatefulWidget {
   final String title;
   final void Function(String search)? onSearch;
+  final int? record;
 
   const FormListTitle({
     super.key,
@@ -14,6 +15,7 @@ class FormListTitle extends StatefulWidget {
     required this.tecSearch,
     this.onSearch,
     required this.title,
+    this.record,
   });
 
   final FocusNode fnSearch;
@@ -44,6 +46,18 @@ class _FormListTitleState extends State<FormListTitle> {
                             fontWeight: FontWeight.bold,
                           ),
                 ),
+                const SizedBox(width: 10),
+                if (widget.record != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      '${widget.record!} record',
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .bodyLarge!
+                          .copyWith(fontSize: 10, color: Colors.black),
+                    ),
+                  ),
                 SizedBox(
                   width: 20,
                   height: 40,

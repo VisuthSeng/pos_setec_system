@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pos_setec_system/data/model/category_model.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
+import 'package:pos_setec_system/presentation/screen/category/category_form.dart';
 import 'package:pos_setec_system/presentation/screen/category/component/category_list.dart';
 import 'package:pos_setec_system/presentation/util/form_list_title.dart';
 
@@ -32,6 +34,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.dispose();
   }
 
+  void onDelete(CategoryModel model) {
+    categoryController.deleteData(model.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -54,6 +60,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                   FormListTitle(
                     title: 'Category',
+                    record: categoryController.listOfCategory.length,
                     fnSearch: fnSearch,
                     tecSearch: tecSearch,
                     onSearch: (search) {
@@ -139,8 +146,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 (index) => CategoryList(
                                   categoryModel:
                                       categoryController.listOfCategory[index],
-                                  index:
-                                      index, // Pass the loop index to your CategoryList widget
+                                  index: index,
+                                  onSelect: () =>
+                                      categoryController.selectCategory(
+                                    categoryController.listOfCategory[index],
+                                  ),
+                                  onEdit: () {
+                                    categoryController.selectCategory(
+                                        categoryController
+                                            .listOfCategory[index]);
+                                    Get.to(
+                                      () => const CategoryForm(
+                                        formEdit: true,
+                                      ),
+                                    );
+                                  },
+                                  onDelete: () => onDelete(
+                                    categoryController.listOfCategory[index],
+                                  ),
                                 ),
                               ),
                             ),

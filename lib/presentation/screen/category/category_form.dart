@@ -12,11 +12,12 @@ class CategoryForm extends StatefulWidget {
   final bool closeFormWhenSuccess;
 
   final void Function()? onSavedComplete;
-
+  final bool formEdit;
   const CategoryForm({
     Key? key,
     this.closeFormWhenSuccess = false,
     this.onSavedComplete,
+    this.formEdit = false,
   }) : super(key: key);
 
   @override
@@ -45,6 +46,10 @@ class _CategoryFormState extends State<CategoryForm> {
     fnName = FocusNode();
     fnNote = FocusNode();
 
+    if (widget.formEdit == true) {
+      tecName.text = categoryController.selectedCategory.name;
+    }
+
     super.initState();
   }
 
@@ -71,6 +76,15 @@ class _CategoryFormState extends State<CategoryForm> {
     await categoryController.saveData(model);
   }
 
+  Future<void> updateData() async {
+    var model = CategoryModel(
+      id: categoryController.selectedCategory.id,
+      name: tecName.text,
+      listProduct: categoryController.selectedCategory.listProduct,
+    );
+    await categoryController.updateData(model);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +101,13 @@ class _CategoryFormState extends State<CategoryForm> {
         ),
       ),
       floatingActionButton: ButtonSave(onPressed: () async {
-        await saveData();
+        if (widget.formEdit == false) {
+          // Use '==' for comparison
+          await saveData();
+        } else {
+          await updateData();
+        }
+
         Get.back();
       }),
     );

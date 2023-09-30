@@ -6,11 +6,17 @@ import 'package:pos_setec_system/presentation/widget/button_icon.dart';
 
 class CategoryList extends StatefulWidget {
   final CategoryModel categoryModel;
+  final Function onSelect;
+  final Function onDelete;
+  final Function onEdit;
   final int index;
   const CategoryList({
     super.key,
     required this.categoryModel,
     required this.index,
+    required this.onSelect,
+    required this.onDelete,
+    required this.onEdit,
   });
 
   @override
@@ -23,7 +29,7 @@ class _CategoryListState extends State<CategoryList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        categoryController.selectCategory(widget.categoryModel);
+        widget.onSelect();
       },
       child: Container(
         height: 40,
@@ -83,9 +89,17 @@ class _CategoryListState extends State<CategoryList> {
                         icon: Icons.delete_forever,
                         iconColor: Colors.red,
                         onPress: () {
-                          categoryController
-                              .deleteData(widget.categoryModel.id);
+                          widget.onDelete();
                         }),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: ButtonIcon(
+                          icon: Icons.edit,
+                          iconColor: Colors.blueAccent,
+                          onPress: () {
+                            widget.onEdit();
+                          }),
+                    ),
                   ],
                 ),
               )
