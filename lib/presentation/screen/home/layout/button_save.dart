@@ -16,10 +16,7 @@ class ButtonSave extends StatelessWidget {
       child: Tooltip(
         message: 'Save',
         child: loading == false
-            ? Icon(
-                Icons.edit,
-                color: Theme.of(context).primaryColor,
-              )
+            ? const Icon(Icons.edit, color: Colors.white)
             : const CircularProgressIndicator(),
       ),
     );

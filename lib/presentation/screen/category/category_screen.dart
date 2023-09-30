@@ -115,7 +115,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   width: 100,
                                   child: Center(
                                     child: Text(
-                                      'Product Quatity',
+                                      'Product',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!

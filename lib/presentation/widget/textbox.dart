@@ -18,7 +18,7 @@ class TextBox extends StatelessWidget {
     ),
     this.readOnly = false,
     this.maxLines = 1,
-    this.fontSize = 13,
+    this.fontSize = 15,
     this.contentPadding = const EdgeInsets.only(
       top: 0,
     ),
@@ -45,30 +45,34 @@ class TextBox extends StatelessWidget {
     return Padding(
       padding: padding,
       child: SizedBox(
-        height: height,
         width: width,
         child: TextField(
-          style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
-                fontSize: fontSize,
-              ),
+          style: Theme.of(context)
+              .primaryTextTheme
+              .bodyLarge!
+              .copyWith(fontSize: fontSize, color: Colors.black),
           maxLines: maxLines,
           readOnly: readOnly,
           cursorHeight: 20,
           focusNode: focusNode,
           controller: controller,
           decoration: InputDecoration(
-            suffixIcon: icon,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50.0),
+              borderSide: const BorderSide(
+                width: 3,
+                color: Color.fromARGB(255, 194, 183, 183),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50.0),
+              borderSide: const BorderSide(
+                width: 3,
+                color: Colors.blue, // Change to the color you want when focused
+              ),
+            ),
             errorText: isError ? errorText : null,
-            // errorBorder: isError
-            //     ? const OutlineInputBorder(
-            //         borderSide: BorderSide(color: Colors.red, width: 1.0),
-            //       )
-            //     : null,
             labelText: labelText,
-            labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontSize: labelFontSize,
-                ),
-            contentPadding: contentPadding,
           ),
         ),
       ),

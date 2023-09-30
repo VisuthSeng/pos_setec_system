@@ -17,7 +17,7 @@ class FormHeader extends StatelessWidget {
           color: Color.fromARGB(255, 255, 255, 255),
           border: Border(
             bottom: BorderSide(
-              color: Color.fromARGB(255, 240, 240, 240),
+              color: Color.fromARGB(255, 194, 183, 183),
             ),
           ),
           // borderRadius: BorderRadius.only(
@@ -33,9 +33,10 @@ class FormHeader extends StatelessWidget {
                 left: 20.0,
               ),
               child: Text(
-                title.toUpperCase(),
+                'Category Form',
                 style: Theme.of(context).primaryTextTheme.titleLarge!.copyWith(
                       fontSize: 18,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
               ),

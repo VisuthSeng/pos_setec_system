@@ -62,7 +62,7 @@ class _CategoryFormState extends State<CategoryForm> {
   Future<void> saveData() async {
     var model = CategoryModel(
       id: UId.getId(),
-      name: 'Orange',
+      name: tecName.text,
       listProduct: [
         ProductModel(id: UId.getId(), name: 'Orange', price: 2, qty: 10),
         ProductModel(id: UId.getId(), name: 'Banana', price: 2, qty: 10),
@@ -74,7 +74,7 @@ class _CategoryFormState extends State<CategoryForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -82,9 +82,7 @@ class _CategoryFormState extends State<CategoryForm> {
               title: 'Category Form',
             ),
             TextBox(
-                focusNode: fnName,
-                controller: tecName,
-                labelText: 'Name Categroy'),
+                focusNode: fnName, controller: tecName, labelText: 'Categroy'),
           ],
         ),
       ),
