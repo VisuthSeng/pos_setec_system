@@ -37,6 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int selectedItem = -1;
+
+  void deselectController() {
+    productController.selectedProduct = null;
+    categoryController.selectedCategory = null;
+    customerController.selectedCustomer = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         selectedItem = index;
                       });
-                      productController.selectedProduct = null;
-                      categoryController.selectedCategory = null;
-                      customerController.selectedCustomer = null;
-
+                      deselectController();
                       if (title == 'Category') {
                         Get.offAll(() => const CategoryScreen());
                       } else if (title == 'Product') {
