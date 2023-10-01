@@ -22,7 +22,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
           const Visibility(
               child: CustomText(
             text: 'SETEC INSTITUTE',
-            color: Colors.lightGreen,
+            color: Colors.greenAccent,
             size: 20,
             weight: FontWeight.bold,
           )),
@@ -83,7 +83,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                 backgroundColor: const Color(0xFFF7F8FC),
                 child: IconButton(
                   onPressed: () {
-                    Get.to(() => const SETECScreen());
+                    Get.offAll(() => const SETECScreen());
                   },
                   icon: const Icon(Icons.person_2_outlined),
                 ),
