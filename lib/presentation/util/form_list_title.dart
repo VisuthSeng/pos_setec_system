@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pos_setec_system/presentation/screen/category/category_form.dart';
 
 import 'package:pos_setec_system/presentation/widget/textbox_search.dart';
 
 class FormListTitle extends StatefulWidget {
   final String title;
   final void Function(String search)? onSearch;
+  final void Function()? onPress;
   final int? record;
 
   const FormListTitle({
@@ -16,6 +15,7 @@ class FormListTitle extends StatefulWidget {
     this.onSearch,
     required this.title,
     this.record,
+    this.onPress,
   });
 
   final FocusNode fnSearch;
@@ -58,18 +58,19 @@ class _FormListTitleState extends State<FormListTitle> {
                           .copyWith(fontSize: 10, color: Colors.black),
                     ),
                   ),
-                SizedBox(
-                  width: 20,
-                  height: 40,
-                  child: IconButton(
-                    highlightColor: Colors.amber,
-                    splashColor: Colors.amber,
-                    onPressed: () {
-                      Get.to(() => const CategoryForm());
-                    },
-                    icon: const Icon(Icons.add),
+                if (widget.onPress != null)
+                  SizedBox(
+                    width: 20,
+                    height: 40,
+                    child: IconButton(
+                      highlightColor: Colors.amber,
+                      splashColor: Colors.amber,
+                      onPressed: () {
+                        widget.onPress!();
+                      },
+                      icon: const Icon(Icons.add),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

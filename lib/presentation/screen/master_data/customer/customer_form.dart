@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/core/util/Uid.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
+import 'package:pos_setec_system/data/model/customer_model.dart';
+import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
 import 'package:pos_setec_system/presentation/screen/home/layout/button_save.dart';
 import 'package:pos_setec_system/presentation/screen/home/layout/form_header.dart';
 import 'package:pos_setec_system/presentation/widget/textbox.dart';
 
-class CategoryForm extends StatefulWidget {
+class CustomerForm extends StatefulWidget {
   final bool closeFormWhenSuccess;
 
   final void Function()? onSavedComplete;
   final bool formEdit;
-  const CategoryForm({
+  const CustomerForm({
     Key? key,
     this.closeFormWhenSuccess = false,
     this.onSavedComplete,
@@ -21,17 +20,19 @@ class CategoryForm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CategoryForm> createState() => _CategoryFormState();
+  State<CustomerForm> createState() => _CustomerFormState();
 }
 
-class _CategoryFormState extends State<CategoryForm> {
-  final CategoryController categoryController = Get.find();
+class _CustomerFormState extends State<CustomerForm> {
+  final CustomerController customerController = Get.find();
 
   late TextEditingController tecName;
-  late TextEditingController tecNote;
+  late TextEditingController tecAddress;
+  late TextEditingController tecPhone;
 
   late FocusNode fnName;
-  late FocusNode fnNote;
+  late FocusNode fnAddress;
+  late FocusNode fnPhone;
 
   bool errorCategoryBlank = false;
   bool errorCategoryExist = false;
@@ -41,13 +42,17 @@ class _CategoryFormState extends State<CategoryForm> {
   @override
   void initState() {
     tecName = TextEditingController();
-    tecNote = TextEditingController();
+    tecAddress = TextEditingController();
+    tecPhone = TextEditingController();
 
     fnName = FocusNode();
-    fnNote = FocusNode();
+    fnAddress = FocusNode();
+    fnPhone = FocusNode();
 
     if (widget.formEdit == true) {
-      tecName.text = categoryController.selectedCategory!.name;
+      tecName.text = customerController.selectedCustomer!.name;
+      tecAddress.text = customerController.selectedCustomer!.address;
+      tecPhone.text = customerController.selectedCustomer!.phone;
     }
 
     super.initState();
@@ -56,33 +61,34 @@ class _CategoryFormState extends State<CategoryForm> {
   @override
   void dispose() {
     tecName.dispose();
-    tecNote.dispose();
+    tecAddress.dispose();
+    tecPhone.dispose();
 
     fnName.dispose();
-    fnNote.dispose();
+    fnAddress.dispose();
+    fnPhone.dispose();
 
     super.dispose();
   }
 
   Future<void> saveData() async {
-    var model = CategoryModel(
+    var model = CustomerModel(
       id: UId.getId(),
       name: tecName.text,
-      listProduct: [
-        ProductModel(id: UId.getId(), name: 'Orange', price: 2, qty: 10),
-        ProductModel(id: UId.getId(), name: 'Banana', price: 2, qty: 10),
-      ],
+      address: tecAddress.text,
+      phone: tecPhone.text,
     );
-    await categoryController.saveData(model);
+    await customerController.saveData(model);
   }
 
   Future<void> updateData() async {
-    var model = CategoryModel(
-      id: categoryController.selectedCategory!.id,
+    var model = CustomerModel(
+      id: customerController.selectedCustomer!.id,
       name: tecName.text,
-      listProduct: categoryController.selectedCategory!.listProduct,
+      address: customerController.selectedCustomer!.address,
+      phone: customerController.selectedCustomer!.phone,
     );
-    await categoryController.updateData(model);
+    await customerController.updateData(model);
   }
 
   @override
@@ -93,10 +99,15 @@ class _CategoryFormState extends State<CategoryForm> {
         child: Column(
           children: [
             const FormHeader(
-              title: 'Category Form',
+              title: 'Customer Form',
             ),
+            TextBox(focusNode: fnName, controller: tecName, labelText: 'Name'),
             TextBox(
-                focusNode: fnName, controller: tecName, labelText: 'Categroy'),
+                focusNode: fnAddress,
+                controller: tecAddress,
+                labelText: 'Address'),
+            TextBox(
+                focusNode: fnPhone, controller: tecPhone, labelText: 'Phone'),
           ],
         ),
       ),

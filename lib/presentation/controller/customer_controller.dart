@@ -16,7 +16,7 @@ class CustomerController extends GetxController {
     address: '',
     phone: '',
   );
-  late CustomerModel selectedCustomer;
+  late CustomerModel? selectedCustomer;
 
   var isLoading = false.obs;
 
@@ -80,7 +80,7 @@ class CustomerController extends GetxController {
     );
   }
 
-  void selectCustomer(CustomerModel model) {
+  void selectCustomer(CustomerModel? model) {
     selectedCustomer = model;
     listOfCustomer.refresh();
   }

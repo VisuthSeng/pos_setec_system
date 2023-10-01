@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
+import 'package:pos_setec_system/data/model/customer_model.dart';
+import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
 import 'package:pos_setec_system/presentation/widget/button_icon.dart';
 
-class CategoryList extends StatefulWidget {
-  final CategoryModel categoryModel;
+class CustomerList extends StatefulWidget {
+  final CustomerModel customerModel;
   final Function onSelect;
   final Function onDelete;
   final Function onEdit;
   final int index;
-  const CategoryList({
+  const CustomerList({
     super.key,
-    required this.categoryModel,
+    required this.customerModel,
     required this.index,
     required this.onSelect,
     required this.onDelete,
@@ -20,11 +20,11 @@ class CategoryList extends StatefulWidget {
   });
 
   @override
-  State<CategoryList> createState() => _CategoryListState();
+  State<CustomerList> createState() => _CustomerListState();
 }
 
-class _CategoryListState extends State<CategoryList> {
-  final CategoryController categoryController = Get.find();
+class _CustomerListState extends State<CustomerList> {
+  final CustomerController customerController = Get.find();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -34,7 +34,7 @@ class _CategoryListState extends State<CategoryList> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: widget.categoryModel == categoryController.selectedCategory
+          color: widget.customerModel == customerController.selectedCustomer
               ? Colors.blue.withOpacity(0.2)
               : Colors.transparent,
           border: const Border(
@@ -62,7 +62,7 @@ class _CategoryListState extends State<CategoryList> {
                 width: 150,
                 child: Center(
                   child: Text(
-                    widget.categoryModel.name,
+                    widget.customerModel.name,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),
@@ -73,7 +73,7 @@ class _CategoryListState extends State<CategoryList> {
                 width: 100,
                 child: Center(
                   child: Text(
-                    widget.categoryModel.listProduct.length.toString(),
+                    widget.customerModel.phone,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),
@@ -81,27 +81,35 @@ class _CategoryListState extends State<CategoryList> {
                 ),
               ),
               SizedBox(
-                width: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ButtonIcon(
-                        icon: Icons.delete_forever,
-                        iconColor: Colors.red,
-                        onPress: () {
-                          widget.onDelete();
-                        }),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: ButtonIcon(
-                          icon: Icons.edit,
-                          iconColor: Colors.blueAccent,
-                          onPress: () {
-                            widget.onEdit();
-                          }),
-                    ),
-                  ],
+                width: 150,
+                child: Center(
+                  child: Text(
+                    widget.customerModel.address,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ButtonIcon(
+                      icon: Icons.delete_forever,
+                      iconColor: Colors.red,
+                      onPress: () {
+                        widget.onDelete();
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: ButtonIcon(
+                        icon: Icons.edit,
+                        iconColor: Colors.blueAccent,
+                        onPress: () {
+                          widget.onEdit();
+                        }),
+                  ),
+                ],
               )
             ],
           ),

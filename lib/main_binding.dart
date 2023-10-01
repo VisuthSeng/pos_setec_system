@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:pos_setec_system/data/repository/category_repository.dart';
 import 'package:pos_setec_system/data/repository/customer_repository.dart';
+import 'package:pos_setec_system/data/repository/product_repository.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
+import 'package:pos_setec_system/presentation/controller/product_controller.dart';
 
 class MainBinding extends Bindings {
   @override
@@ -24,6 +26,16 @@ class MainBinding extends Bindings {
     Get.put(
       CategoryController(
         categoryRepository: Get.find(),
+      ),
+      permanent: true,
+    );
+    Get.put(
+      ProductRepository(),
+      permanent: true,
+    );
+    Get.put(
+      ProductController(
+        productRepository: Get.find(),
       ),
       permanent: true,
     );

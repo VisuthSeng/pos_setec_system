@@ -15,7 +15,7 @@ class CategoryController extends GetxController {
     name: '',
     listProduct: [],
   );
-  late CategoryModel selectedCategory;
+  late CategoryModel? selectedCategory;
 
   var isLoading = false.obs;
 
@@ -29,7 +29,7 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
-  void selectCategory(CategoryModel model) {
+  void selectCategory(CategoryModel? model) {
     selectedCategory = model;
     listOfCategory.refresh();
   }

@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-class SaleDetail {
+class SaleDetailModel {
   final String id;
   final String productName;
   final double qty;
   final double price;
   final int discount;
   final double amount;
-  SaleDetail({
+  SaleDetailModel({
     required this.id,
     required this.productName,
     required this.qty,
@@ -16,7 +16,7 @@ class SaleDetail {
     required this.amount,
   });
 
-  SaleDetail copyWith({
+  SaleDetailModel copyWith({
     String? id,
     String? productName,
     double? qty,
@@ -24,7 +24,7 @@ class SaleDetail {
     int? discount,
     double? amount,
   }) {
-    return SaleDetail(
+    return SaleDetailModel(
       id: id ?? this.id,
       productName: productName ?? this.productName,
       qty: qty ?? this.qty,
@@ -45,8 +45,8 @@ class SaleDetail {
     };
   }
 
-  factory SaleDetail.fromMap(Map<String, dynamic> map) {
-    return SaleDetail(
+  factory SaleDetailModel.fromMap(Map<String, dynamic> map) {
+    return SaleDetailModel(
       id: map['id'] ?? '',
       productName: map['productName'] ?? '',
       qty: map['qty']?.toDouble() ?? 0.0,
@@ -58,8 +58,8 @@ class SaleDetail {
 
   String toJson() => json.encode(toMap());
 
-  factory SaleDetail.fromJson(String source) =>
-      SaleDetail.fromMap(json.decode(source));
+  factory SaleDetailModel.fromJson(String source) =>
+      SaleDetailModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -70,7 +70,7 @@ class SaleDetail {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is SaleDetail &&
+    return other is SaleDetailModel &&
         other.id == id &&
         other.productName == productName &&
         other.qty == qty &&

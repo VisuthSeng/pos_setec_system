@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
-import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
-import 'package:pos_setec_system/presentation/screen/category/category_form.dart';
-import 'package:pos_setec_system/presentation/screen/category/component/category_list.dart';
+import 'package:pos_setec_system/data/model/product_model.dart';
+import 'package:pos_setec_system/presentation/controller/product_controller.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/stock/component/stock_list.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/stock/stock_form.dart';
 import 'package:pos_setec_system/presentation/util/form_list_title.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+class StockScreen extends StatefulWidget {
+  const StockScreen({super.key});
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<StockScreen> createState() => _StockScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
-  final CategoryController categoryController = Get.find();
-  final CustomerController customerController = Get.find();
+class _StockScreenState extends State<StockScreen> {
+  final ProductController productController = Get.find();
+
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
   @override
@@ -34,8 +33,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.dispose();
   }
 
-  void onDelete(CategoryModel model) {
-    categoryController.deleteData(model.id);
+  void onDelete(ProductModel model) {
+    productController.deleteData(model.id);
   }
 
   @override
@@ -59,12 +58,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     height: 10,
                   ),
                   FormListTitle(
-                    title: 'Category',
-                    record: categoryController.listOfCategory.length,
+                    title: 'Stock',
+                    record: productController.listOfProduct.length,
                     fnSearch: fnSearch,
                     tecSearch: tecSearch,
                     onSearch: (search) {
-                      categoryController.searchData(search);
+                      productController.searchData(search);
                     },
                   ),
                   Container(
@@ -108,7 +107,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   width: 150,
                                   child: Center(
                                     child: Text(
-                                      'Category',
+                                      'Product',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -122,7 +121,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   width: 100,
                                   child: Center(
                                     child: Text(
-                                      'Product',
+                                      'Qty',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
@@ -142,28 +141,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: List.generate(
-                                categoryController.listOfCategory.length,
-                                (index) => CategoryList(
-                                  categoryModel:
-                                      categoryController.listOfCategory[index],
+                                productController.listOfProduct.length,
+                                (index) => StockList(
+                                  productModel:
+                                      productController.listOfProduct[index],
                                   index: index,
                                   onSelect: () =>
-                                      categoryController.selectCategory(
-                                    categoryController.listOfCategory[index],
+                                      productController.selectProduct(
+                                    productController.listOfProduct[index],
                                   ),
                                   onEdit: () {
-                                    categoryController.selectCategory(
-                                        categoryController
-                                            .listOfCategory[index]);
+                                    productController.selectProduct(
+                                        productController.listOfProduct[index]);
                                     Get.to(
-                                      () => const CategoryForm(
+                                      () => const StockForm(
                                         formEdit: true,
                                       ),
                                     );
                                   },
-                                  onDelete: () => onDelete(
-                                    categoryController.listOfCategory[index],
-                                  ),
                                 ),
                               ),
                             ),

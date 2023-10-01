@@ -33,7 +33,7 @@ class FormHeader extends StatelessWidget {
                 left: 20.0,
               ),
               child: Text(
-                'Category Form',
+                title,
                 style: Theme.of(context).primaryTextTheme.titleLarge!.copyWith(
                       fontSize: 18,
                       color: Colors.black,

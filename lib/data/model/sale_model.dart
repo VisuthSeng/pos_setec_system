@@ -10,7 +10,7 @@ class SaleModel {
   final String customerName;
   final DateTime createAt;
   final double total;
-  final List<SaleDetail> listSaleDetail;
+  final List<SaleDetailModel> listSaleDetail;
   SaleModel({
     required this.id,
     required this.invoice,
@@ -26,7 +26,7 @@ class SaleModel {
     String? customerName,
     DateTime? createAt,
     double? total,
-    List<SaleDetail>? listSaleDetail,
+    List<SaleDetailModel>? listSaleDetail,
   }) {
     return SaleModel(
       id: id ?? this.id,
@@ -56,8 +56,8 @@ class SaleModel {
       customerName: map['customerName'] ?? '',
       createAt: DateTime.fromMillisecondsSinceEpoch(map['createAt']),
       total: map['total']?.toDouble() ?? 0.0,
-      listSaleDetail: List<SaleDetail>.from(
-          map['listSaleDetail']?.map((x) => SaleDetail.fromMap(x))),
+      listSaleDetail: List<SaleDetailModel>.from(
+          map['listSaleDetail']?.map((x) => SaleDetailModel.fromMap(x))),
     );
   }
 

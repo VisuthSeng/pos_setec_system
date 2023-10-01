@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/presentation/screen/customer/customer_screen.dart';
-import 'package:pos_setec_system/presentation/screen/category/category_screen.dart';
+
+import 'package:pos_setec_system/presentation/screen/master_data/category/category_screen.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/customer/customer_screen.dart';
 import 'package:pos_setec_system/presentation/screen/setec/pos_system_setec_screen.dart';
 import 'package:pos_setec_system/presentation/screen/home/home_screen.dart';
 

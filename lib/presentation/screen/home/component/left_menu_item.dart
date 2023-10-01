@@ -5,12 +5,16 @@ class LeftMenuItem extends StatelessWidget {
   final IconData? icon;
   final Color? iconColor;
   final Function? onSelected;
-  const LeftMenuItem(
-      {super.key,
-      required this.title,
-      required this.icon,
-      this.onSelected,
-      this.iconColor});
+  final Color? bgColor;
+
+  const LeftMenuItem({
+    super.key,
+    required this.title,
+    required this.icon,
+    this.onSelected,
+    this.iconColor,
+    this.bgColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class LeftMenuItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: const Color(0xffFFFFFF),
+            color: bgColor ?? const Color(0xffFFFFFF),
           ),
           height: 40,
           child: Row(
