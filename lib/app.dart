@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         child: page!,
       ),
       initialRoute: '/', // Define the initial route
-
       getPages: [
         GetPage(
           name: '/',
