@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
-import 'package:pos_setec_system/presentation/widget/button_icon.dart';
+import '../../../../../data/model/category_model.dart';
+import '../../../../controller/category_controller.dart';
+import '../../../../widget/button_icon.dart';
 
 class CategoryList extends StatefulWidget {
   final CategoryModel categoryModel;
@@ -25,6 +25,9 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   final CategoryController categoryController = Get.find();
+
+  // Function to calculate the product count for each category
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

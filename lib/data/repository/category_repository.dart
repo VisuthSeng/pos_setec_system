@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pos_setec_system/data/firebase/firestore_collection.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
+import '../firebase/firestore_collection.dart';
+import '../model/category_model.dart';
 
 abstract class ICategoryRepository {
   Future<CategoryModel> saveCategory(CategoryModel model);

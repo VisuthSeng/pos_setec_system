@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:pos_setec_system/data/model/sale_detail_model.dart';
+import 'sale_detail_model.dart';
 
 class SaleModel {
   final String id;

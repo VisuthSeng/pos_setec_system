@@ -95,6 +95,7 @@ class LabelTextboxBrowse extends StatelessWidget {
               child: TextField(
                 style: Theme.of(context).primaryTextTheme.bodyLarge!.copyWith(
                       fontSize: fontSize,
+                      color: Colors.black,
                     ),
                 // keyboardType: TextInputType.multiline,
                 readOnly: isReadOnly,

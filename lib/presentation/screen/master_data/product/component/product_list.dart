@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
-import 'package:pos_setec_system/presentation/controller/product_controller.dart';
-import 'package:pos_setec_system/presentation/widget/button_icon.dart';
+import '../../../../../data/model/product_model.dart';
+import '../../../../controller/product_controller.dart';
+import '../../../../widget/button_icon.dart';
 
 class ProductList extends StatefulWidget {
   final ProductModel productModel;
@@ -63,6 +63,17 @@ class _ProductListState extends State<ProductList> {
                 child: Center(
                   child: Text(
                     widget.productModel.name,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 150,
+                child: Center(
+                  child: Text(
+                    widget.productModel.categoryModel.name,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),

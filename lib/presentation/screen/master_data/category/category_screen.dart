@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/data/model/category_model.dart';
+import 'package:pos_setec_system/data/model/product_model.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
-import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
+import 'package:pos_setec_system/presentation/controller/product_controller.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/category/category_form.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/category/component/category_list.dart';
 import 'package:pos_setec_system/presentation/util/form_list_title.dart';
@@ -16,9 +17,10 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   final CategoryController categoryController = Get.find();
-  final CustomerController customerController = Get.find();
+  final ProductController productController = Get.find();
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
+  List<ProductModel> listProduct = [];
   @override
   void initState() {
     tecSearch = TextEditingController();

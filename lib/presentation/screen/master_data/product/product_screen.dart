@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
-import 'package:pos_setec_system/presentation/controller/product_controller.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/product/component/product_list.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/product/product_form.dart';
-import 'package:pos_setec_system/presentation/util/form_list_title.dart';
+import '../../../../data/model/product_model.dart';
+import '../../../controller/category_controller.dart';
+import '../../../controller/product_controller.dart';
+import 'component/product_list.dart';
+import 'product_form.dart';
+import '../../../util/form_list_title.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -15,6 +16,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final ProductController productController = Get.find();
+  final CategoryController categoryController = Get.find();
 
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
@@ -111,6 +113,20 @@ class _ProductScreenState extends State<ProductScreen> {
                                   child: Center(
                                     child: Text(
                                       'Product',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                  child: Center(
+                                    child: Text(
+                                      'Category',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
-import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
-import 'package:pos_setec_system/presentation/controller/product_controller.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/category/category_screen.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/customer/customer_screen.dart';
+import '../../controller/category_controller.dart';
+import '../../controller/customer_controller.dart';
+import '../../controller/product_controller.dart';
+import '../master_data/category/category_screen.dart';
+import '../master_data/customer/customer_screen.dart';
 
-import 'package:pos_setec_system/presentation/screen/home/component/left_menu_item.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/product/product_screen.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/stock/stock_screen.dart';
-import 'package:pos_setec_system/presentation/util/responsive.dart';
-import 'package:pos_setec_system/presentation/widget/top_nav.dart';
+import 'component/left_menu_item.dart';
+import '../master_data/product/product_screen.dart';
+import '../master_data/stock/stock_screen.dart';
+import '../../util/responsive.dart';
+import '../../widget/top_nav.dart';
 
 class HomeScreen extends StatefulWidget {
   final Widget child;
@@ -31,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final ProductController productController = Get.find();
 
   List<String> listMasterData = [
+    'Category',
     'Product',
     'Stock',
-    'Category',
     'Customer',
   ];
 

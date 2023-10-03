@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
-import 'package:pos_setec_system/presentation/controller/product_controller.dart';
-import 'package:pos_setec_system/presentation/screen/home/layout/button_save.dart';
-import 'package:pos_setec_system/presentation/screen/home/layout/form_header.dart';
-import 'package:pos_setec_system/presentation/widget/textbox.dart';
+import '../../../../data/model/product_model.dart';
+import '../../../controller/product_controller.dart';
+import '../../home/layout/button_save.dart';
+import '../../home/layout/form_header.dart';
+import '../../../widget/textbox.dart';
 
 class StockForm extends StatefulWidget {
   final bool closeFormWhenSuccess;
@@ -59,6 +59,7 @@ class _StockFormState extends State<StockForm> {
       name: productController.selectedProduct!.name,
       price: productController.selectedProduct!.price,
       qty: double.tryParse(tecQty.text) ?? 0,
+      categoryModel: productController.selectedProduct!.categoryModel,
     );
     await productController.updateData(model);
   }

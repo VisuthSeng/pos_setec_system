@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/core/util/Uid.dart';
 import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
+
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/screen/home/layout/button_save.dart';
 import 'package:pos_setec_system/presentation/screen/home/layout/form_header.dart';
@@ -68,10 +68,7 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: UId.getId(),
       name: tecName.text,
-      listProduct: [
-        ProductModel(id: UId.getId(), name: 'Orange', price: 2, qty: 10),
-        ProductModel(id: UId.getId(), name: 'Banana', price: 2, qty: 10),
-      ],
+      listProduct: [],
     );
     await categoryController.saveData(model);
   }
@@ -80,7 +77,7 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: categoryController.selectedCategory!.id,
       name: tecName.text,
-      listProduct: categoryController.selectedCategory!.listProduct,
+      listProduct: [],
     );
     await categoryController.updateData(model);
   }

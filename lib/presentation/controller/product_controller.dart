@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pos_setec_system/data/model/category_model.dart';
 import 'package:pos_setec_system/data/model/product_model.dart';
 import 'package:pos_setec_system/data/repository/product_repository.dart';
 import 'package:pos_setec_system/presentation/widget/alert_box.dart';
@@ -13,10 +14,16 @@ class ProductController extends GetxController {
   var blankCategory = ProductModel(
     id: '',
     name: '',
+    categoryModel: CategoryModel(
+      id: '',
+      name: '',
+      listProduct: [],
+    ),
     price: 0,
     qty: 0,
   );
   late ProductModel? selectedProduct;
+  late CategoryModel categoryModel;
 
   var isLoading = false.obs;
 

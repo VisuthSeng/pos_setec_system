@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      transitionDuration: const Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 200),
       defaultTransition: Transition.fade,
       debugShowCheckedModeBanner: false,
       title: 'SETEC POS SYSTEM',
