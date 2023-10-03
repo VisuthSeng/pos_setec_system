@@ -113,6 +113,7 @@ class _ProductFormState extends State<ProductForm> {
       qty: 0,
       categoryModel: categoryModel,
     );
+
     await productController.updateData(model);
   }
 

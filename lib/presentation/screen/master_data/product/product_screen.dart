@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pos_setec_system/data/model/category_model.dart';
 import '../../../../data/model/product_model.dart';
 import '../../../controller/category_controller.dart';
 import '../../../controller/product_controller.dart';
@@ -35,8 +36,15 @@ class _ProductScreenState extends State<ProductScreen> {
     super.dispose();
   }
 
-  void onDelete(ProductModel model) {
-    productController.deleteData(model.id);
+  Future<void> onDeleteProduct(
+      ProductModel product, CategoryModel category) async {
+    // Step 1: Remove the product from the category's list of products
+    // category.listProduct.removeWhere((p) => p.id == product.id);
+
+    // // Step 2: Update the category with the modified list of products
+    // await categoryController.updateData(category);
+
+    productController.deleteData(product.id);
   }
 
   @override
@@ -162,26 +170,32 @@ class _ProductScreenState extends State<ProductScreen> {
                               children: List.generate(
                                 productController.listOfProduct.length,
                                 (index) => ProductList(
-                                  productModel:
-                                      productController.listOfProduct[index],
-                                  index: index,
-                                  onSelect: () =>
+                                    productModel:
+                                        productController.listOfProduct[index],
+                                    index: index,
+                                    onSelect: () =>
+                                        productController.selectProduct(
+                                          productController
+                                              .listOfProduct[index],
+                                        ),
+                                    onEdit: () {
                                       productController.selectProduct(
-                                    productController.listOfProduct[index],
-                                  ),
-                                  onEdit: () {
-                                    productController.selectProduct(
-                                        productController.listOfProduct[index]);
-                                    Get.to(
-                                      () => const ProductForm(
-                                        formEdit: true,
-                                      ),
-                                    );
-                                  },
-                                  onDelete: () => onDelete(
-                                    productController.listOfProduct[index],
-                                  ),
-                                ),
+                                          productController
+                                              .listOfProduct[index]);
+                                      Get.to(
+                                        () => ProductForm(
+                                          formEdit: true,
+                                          onSavedComplete: () async {},
+                                        ),
+                                      );
+                                    },
+                                    onDelete: () async {
+                                      await onDeleteProduct(
+                                          productController
+                                              .listOfProduct[index],
+                                          productController.listOfProduct[index]
+                                              .categoryModel);
+                                    }),
                               ),
                             ),
                           ),
