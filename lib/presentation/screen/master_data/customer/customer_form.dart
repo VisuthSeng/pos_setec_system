@@ -85,8 +85,8 @@ class _CustomerFormState extends State<CustomerForm> {
     var model = CustomerModel(
       id: customerController.selectedCustomer!.id,
       name: tecName.text,
-      address: customerController.selectedCustomer!.address,
-      phone: customerController.selectedCustomer!.phone,
+      address: tecAddress.text,
+      phone: tecPhone.text,
     );
     customerController.updateData(model);
   }
