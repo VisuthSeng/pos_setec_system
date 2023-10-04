@@ -61,7 +61,7 @@ class _StockFormState extends State<StockForm> {
       qty: double.tryParse(tecQty.text) ?? 0,
       categoryModel: productController.selectedProduct!.categoryModel,
     );
-    await productController.updateData(model);
+    productController.updateData(model);
   }
 
   @override

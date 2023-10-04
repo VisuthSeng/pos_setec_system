@@ -91,7 +91,7 @@ class _ProductFormState extends State<ProductForm> {
       categoryModel: categoryModel,
     );
 
-    await productController.saveData(model);
+    productController.saveData(model);
   }
 
   Future<void> updateData() async {
@@ -103,7 +103,7 @@ class _ProductFormState extends State<ProductForm> {
       categoryModel: categoryModel,
     );
 
-    await productController.updateData(model);
+    productController.updateData(model);
   }
 
   void browseCategory(BuildContext context) {

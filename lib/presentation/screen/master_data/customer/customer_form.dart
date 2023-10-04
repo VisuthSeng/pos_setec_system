@@ -78,7 +78,7 @@ class _CustomerFormState extends State<CustomerForm> {
       address: tecAddress.text,
       phone: tecPhone.text,
     );
-    await customerController.saveData(model);
+    customerController.saveData(model);
   }
 
   Future<void> updateData() async {
@@ -88,7 +88,7 @@ class _CustomerFormState extends State<CustomerForm> {
       address: customerController.selectedCustomer!.address,
       phone: customerController.selectedCustomer!.phone,
     );
-    await customerController.updateData(model);
+    customerController.updateData(model);
   }
 
   @override

@@ -106,7 +106,7 @@ class _StockListState extends State<StockList> {
                     Padding(
                       padding: const EdgeInsets.only(left: 5),
                       child: ButtonIcon(
-                          icon: Icons.add,
+                          icon: Icons.edit,
                           iconColor: Colors.blueAccent,
                           onPress: () {
                             widget.onEdit();

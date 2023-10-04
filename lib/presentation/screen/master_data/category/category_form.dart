@@ -69,7 +69,7 @@ class _CategoryFormState extends State<CategoryForm> {
       id: UId.getId(),
       name: tecName.text,
     );
-    await categoryController.saveData(model);
+    categoryController.saveData(model);
   }
 
   Future<void> updateData() async {
@@ -77,7 +77,7 @@ class _CategoryFormState extends State<CategoryForm> {
       id: categoryController.selectedCategory!.id,
       name: tecName.text,
     );
-    await categoryController.updateData(model);
+    categoryController.updateData(model);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pos_setec_system/presentation/widget/button_icon.dart';
 
 import 'package:pos_setec_system/presentation/widget/textbox_search.dart';
 
@@ -58,19 +59,15 @@ class _FormListTitleState extends State<FormListTitle> {
                           .copyWith(fontSize: 10, color: Colors.black),
                     ),
                   ),
+                const SizedBox(
+                  width: 10,
+                ),
                 if (widget.onPress != null)
-                  SizedBox(
-                    width: 20,
-                    height: 40,
-                    child: IconButton(
-                      highlightColor: Colors.amber,
-                      splashColor: Colors.amber,
-                      onPressed: () {
+                  ButtonIcon(
+                      icon: Icons.add,
+                      onPress: () {
                         widget.onPress!();
-                      },
-                      icon: const Icon(Icons.add),
-                    ),
-                  ),
+                      }),
               ],
             ),
           ),
