@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextBox extends StatelessWidget {
+class TextBox extends StatefulWidget {
   const TextBox({
     super.key,
     required this.focusNode,
@@ -41,21 +41,38 @@ class TextBox extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
 
   @override
+  State<TextBox> createState() => _TextBoxState();
+}
+
+class _TextBoxState extends State<TextBox> {
+  @override
+  void initState() {
+    widget.focusNode.addListener(_clearTextOnTap);
+    super.initState();
+  }
+
+  void _clearTextOnTap() {
+    if (widget.focusNode.hasFocus) {
+      widget.controller.clear();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: widget.padding,
       child: SizedBox(
-        width: width,
+        width: widget.width,
         child: TextField(
           style: Theme.of(context)
               .primaryTextTheme
               .bodyLarge!
-              .copyWith(fontSize: fontSize, color: Colors.black),
-          maxLines: maxLines,
-          readOnly: readOnly,
+              .copyWith(fontSize: widget.fontSize, color: Colors.black),
+          maxLines: widget.maxLines,
+          readOnly: widget.readOnly,
           cursorHeight: 20,
-          focusNode: focusNode,
-          controller: controller,
+          focusNode: widget.focusNode,
+          controller: widget.controller,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50.0),
@@ -71,8 +88,8 @@ class TextBox extends StatelessWidget {
                 color: Colors.blue, // Change to the color you want when focused
               ),
             ),
-            errorText: isError ? errorText : null,
-            labelText: labelText,
+            errorText: widget.isError ? widget.errorText : null,
+            labelText: widget.labelText,
           ),
         ),
       ),
