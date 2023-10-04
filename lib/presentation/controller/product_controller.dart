@@ -17,7 +17,6 @@ class ProductController extends GetxController {
     categoryModel: CategoryModel(
       id: '',
       name: '',
-      listProduct: [],
     ),
     price: 0,
     qty: 0,

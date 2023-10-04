@@ -13,7 +13,6 @@ class CategoryController extends GetxController {
   var blankCategory = CategoryModel(
     id: '',
     name: '',
-    listProduct: [],
   );
   late CategoryModel? selectedCategory;
 

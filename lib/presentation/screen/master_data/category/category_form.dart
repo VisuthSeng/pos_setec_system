@@ -68,7 +68,6 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: UId.getId(),
       name: tecName.text,
-      listProduct: [],
     );
     await categoryController.saveData(model);
   }
@@ -77,7 +76,6 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: categoryController.selectedCategory!.id,
       name: tecName.text,
-      listProduct: [],
     );
     await categoryController.updateData(model);
   }

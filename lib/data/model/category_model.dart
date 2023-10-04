@@ -1,68 +1,54 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-
-import 'package:pos_setec_system/data/model/product_model.dart';
 
 class CategoryModel {
   final String id;
   final String name;
-  final List<ProductModel> listProduct;
 
   CategoryModel({
     required this.id,
     required this.name,
-    required this.listProduct,
   });
 
   CategoryModel copyWith({
     String? id,
     String? name,
-    List<ProductModel>? listProduct,
   }) {
     return CategoryModel(
       id: id ?? this.id,
       name: name ?? this.name,
-      listProduct: listProduct ?? this.listProduct,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'id': id,
       'name': name,
-      'listProduct': listProduct.map((x) => x.toMap()).toList(),
     };
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      listProduct: List<ProductModel>.from(
-          map['listProduct']?.map((x) => ProductModel.fromMap(x))),
+      id: map['id'] as String,
+      name: map['name'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory CategoryModel.fromJson(String source) =>
-      CategoryModel.fromMap(json.decode(source));
+      CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'CategoryModel(id: $id, name: $name, listProduct: $listProduct)';
+  String toString() => 'CategoryModel(id: $id, name: $name)';
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant CategoryModel other) {
     if (identical(this, other)) return true;
 
-    return other is CategoryModel &&
-        other.id == id &&
-        other.name == name &&
-        listEquals(other.listProduct, listProduct);
+    return other.id == id && other.name == name;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ listProduct.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

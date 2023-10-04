@@ -76,7 +76,7 @@ class _CategoryListState extends State<CategoryList> {
                 width: 100,
                 child: Center(
                   child: Text(
-                    widget.categoryModel.listProduct.length.toString(),
+                    '0',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),

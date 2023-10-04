@@ -92,17 +92,6 @@ class _ProductFormState extends State<ProductForm> {
     );
 
     await productController.saveData(model);
-
-    // not yet find solution to get length product
-    //update just to get length product for category
-    // must be fill in save / update / delete
-    // if dont fill this function in when delete productModel  it will cuz problem to category product length
-
-    listProduct.assignAll(categoryModel.listProduct);
-    listProduct.add(model);
-    var modelC = categoryModel.copyWith(listProduct: listProduct);
-
-    await categoryController.updateData(modelC);
   }
 
   Future<void> updateData() async {

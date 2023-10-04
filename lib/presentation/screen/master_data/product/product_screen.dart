@@ -38,12 +38,6 @@ class _ProductScreenState extends State<ProductScreen> {
 
   Future<void> onDeleteProduct(
       ProductModel product, CategoryModel category) async {
-    // Step 1: Remove the product from the category's list of products
-    // category.listProduct.removeWhere((p) => p.id == product.id);
-
-    // // Step 2: Update the category with the modified list of products
-    // await categoryController.updateData(category);
-
     productController.deleteData(product.id);
   }
 
