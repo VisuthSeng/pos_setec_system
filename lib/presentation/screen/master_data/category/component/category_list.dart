@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pos_setec_system/presentation/controller/product_controller.dart';
 import '../../../../../data/model/category_model.dart';
 import '../../../../controller/category_controller.dart';
 import '../../../../widget/button_icon.dart';
@@ -25,11 +26,15 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   final CategoryController categoryController = Get.find();
+  final ProductController productController = Get.find();
 
   // Function to calculate the product count for each category
 
   @override
   Widget build(BuildContext context) {
+    int productCount = productController.listOfProduct
+        .where((product) => product.categoryModel.id == widget.categoryModel.id)
+        .length;
     return GestureDetector(
       onTap: () {
         widget.onSelect();
@@ -76,7 +81,7 @@ class _CategoryListState extends State<CategoryList> {
                 width: 100,
                 child: Center(
                   child: Text(
-                    '0',
+                    productCount.toString(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),

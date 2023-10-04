@@ -21,10 +21,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
   List<ProductModel> listProduct = [];
+  var productlength = 0;
   @override
   void initState() {
     tecSearch = TextEditingController();
     fnSearch = FocusNode();
+
     super.initState();
   }
 
