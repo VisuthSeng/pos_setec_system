@@ -47,139 +47,138 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         width: 1010,
-        height: constraints.maxHeight,
+        height: constraints.maxHeight - 10,
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Obx(
-            () => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FormListTitle(
-                    title: 'Category',
-                    record: categoryController.listOfCategory.length,
-                    fnSearch: fnSearch,
-                    tecSearch: tecSearch,
-                    onSearch: (search) {
-                      categoryController.searchData(search);
-                    },
-                    onPress: () {
-                      Get.to(() => const CategoryForm());
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade400,
-                      ),
-                      borderRadius: BorderRadius.circular(5),
+            () => SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FormListTitle(
+                      title: 'Category',
+                      record: categoryController.listOfCategory.length,
+                      fnSearch: fnSearch,
+                      tecSearch: tecSearch,
+                      onSearch: (search) {
+                        categoryController.searchData(search);
+                      },
+                      onPress: () {
+                        Get.to(() => const CategoryForm());
+                      },
                     ),
-                    width: constraints.maxWidth - 10,
-                    height: constraints.maxHeight - 60,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 223, 226, 228),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20.0,
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    '#',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Center(
-                                    child: Text(
-                                      'Category',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Product',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade400,
                         ),
-                        SizedBox(
-                          width: constraints.maxWidth - 10,
-                          height: constraints.maxHeight - 60 - 42,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(
-                                categoryController.listOfCategory.length,
-                                (index) => CategoryList(
-                                  categoryModel:
-                                      categoryController.listOfCategory[index],
-                                  index: index,
-                                  onSelect: () =>
-                                      categoryController.selectCategory(
-                                    categoryController.listOfCategory[index],
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      width: constraints.maxWidth - 10,
+                      height: constraints.maxHeight - 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 223, 226, 228),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 30,
+                                    child: Text(
+                                      '#',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                  onEdit: () {
-                                    categoryController.selectCategory(
-                                        categoryController
-                                            .listOfCategory[index]);
-                                    Get.to(
-                                      () => const CategoryForm(
-                                        formEdit: true,
+                                  SizedBox(
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        'Category',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
                                       ),
-                                    );
-                                  },
-                                  onDelete: () => onDelete(
-                                    categoryController.listOfCategory[index],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Center(
+                                      child: Text(
+                                        'Product',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: constraints.maxWidth - 10,
+                            height: constraints.maxHeight - 60 - 42,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(
+                                  categoryController.listOfCategory.length,
+                                  (index) => CategoryList(
+                                    categoryModel: categoryController
+                                        .listOfCategory[index],
+                                    index: index,
+                                    onSelect: () =>
+                                        categoryController.selectCategory(
+                                      categoryController.listOfCategory[index],
+                                    ),
+                                    onEdit: () {
+                                      categoryController.selectCategory(
+                                          categoryController
+                                              .listOfCategory[index]);
+                                      Get.to(
+                                        () => const CategoryForm(
+                                          formEdit: true,
+                                        ),
+                                      );
+                                    },
+                                    onDelete: () => onDelete(
+                                      categoryController.listOfCategory[index],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/sale/sale_screen.dart';
 import '../../controller/category_controller.dart';
 import '../../controller/customer_controller.dart';
 import '../../controller/product_controller.dart';
@@ -35,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Product',
     'Stock',
     'Customer',
+    'Start Sale'
   ];
 
   int selectedItem = -1;
@@ -80,6 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else if (title == 'Customer') {
                       icon = Icons.people_alt_outlined;
                       iconColor = Theme.of(context).primaryColor;
+                    } else if (title == 'Start Sale') {
+                      icon = Icons.sell;
+                      iconColor = Colors.amberAccent;
                     }
 
                     return LeftMenuItem(
@@ -102,6 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           Get.offAll(() => const StockScreen());
                         } else if (title == 'Customer') {
                           Get.offAll(() => const CustomerScreen());
+                        } else if (title == 'Start Sale') {
+                          Get.offAll(() => const SaleScreen());
                         }
                       },
                     );

@@ -47,149 +47,148 @@ class _CustomerScreenState extends State<CustomerScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Obx(
-            () => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FormListTitle(
-                    title: 'Customer',
-                    record: customerController.listOfCustomer.length,
-                    fnSearch: fnSearch,
-                    tecSearch: tecSearch,
-                    onSearch: (search) {
-                      customerController.searchData(search);
-                    },
-                    onPress: () {
-                      Get.to(() => const CustomerForm());
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade400,
-                      ),
-                      borderRadius: BorderRadius.circular(5),
+            () => SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FormListTitle(
+                      title: 'Customer',
+                      record: customerController.listOfCustomer.length,
+                      fnSearch: fnSearch,
+                      tecSearch: tecSearch,
+                      onSearch: (search) {
+                        customerController.searchData(search);
+                      },
+                      onPress: () {
+                        Get.to(() => const CustomerForm());
+                      },
                     ),
-                    width: constraints.maxWidth - 10,
-                    height: constraints.maxHeight - 60,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 223, 226, 228),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20.0,
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    '#',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Center(
-                                    child: Text(
-                                      'Name',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Phone',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Center(
-                                    child: Text(
-                                      'Address',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade400,
                         ),
-                        SizedBox(
-                          width: constraints.maxWidth - 10,
-                          height: constraints.maxHeight - 60 - 42,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(
-                                customerController.listOfCustomer.length,
-                                (index) => CustomerList(
-                                  customerModel:
-                                      customerController.listOfCustomer[index],
-                                  index: index,
-                                  onSelect: () =>
-                                      customerController.selectCustomer(
-                                    customerController.listOfCustomer[index],
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      width: constraints.maxWidth - 10,
+                      height: constraints.maxHeight - 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 223, 226, 228),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 30,
+                                    child: Text(
+                                      '#',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                  onEdit: () {
-                                    customerController.selectCustomer(
-                                        customerController
-                                            .listOfCustomer[index]);
-                                    Get.to(
-                                      () => const CustomerForm(
-                                        formEdit: true,
+                                  SizedBox(
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        'Name',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
                                       ),
-                                    );
-                                  },
-                                  onDelete: () => onDelete(
-                                    customerController.listOfCustomer[index],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Center(
+                                      child: Text(
+                                        'Phone',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        'Address',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: constraints.maxWidth - 10,
+                            height: constraints.maxHeight - 60 - 42,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(
+                                  customerController.listOfCustomer.length,
+                                  (index) => CustomerList(
+                                    customerModel: customerController
+                                        .listOfCustomer[index],
+                                    index: index,
+                                    onSelect: () =>
+                                        customerController.selectCustomer(
+                                      customerController.listOfCustomer[index],
+                                    ),
+                                    onEdit: () {
+                                      customerController.selectCustomer(
+                                          customerController
+                                              .listOfCustomer[index]);
+                                      Get.to(
+                                        () => const CustomerForm(
+                                          formEdit: true,
+                                        ),
+                                      );
+                                    },
+                                    onDelete: () => onDelete(
+                                      customerController.listOfCustomer[index],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

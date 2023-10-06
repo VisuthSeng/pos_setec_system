@@ -50,154 +50,154 @@ class _ProductScreenState extends State<ProductScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Obx(
-            () => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FormListTitle(
-                    title: 'Product',
-                    record: productController.listOfProduct.length,
-                    fnSearch: fnSearch,
-                    tecSearch: tecSearch,
-                    onSearch: (search) {
-                      productController.searchData(search);
-                    },
-                    onPress: () {
-                      Get.to(() => const ProductForm());
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey.shade400,
-                      ),
-                      borderRadius: BorderRadius.circular(5),
+            () => SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FormListTitle(
+                      title: 'Product',
+                      record: productController.listOfProduct.length,
+                      fnSearch: fnSearch,
+                      tecSearch: tecSearch,
+                      onSearch: (search) {
+                        productController.searchData(search);
+                      },
+                      onPress: () {
+                        Get.to(() => const ProductForm());
+                      },
                     ),
-                    width: constraints.maxWidth - 10,
-                    height: constraints.maxHeight - 60,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 223, 226, 228),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20.0,
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    '#',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Center(
-                                    child: Text(
-                                      'Product',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Center(
-                                    child: Text(
-                                      'Category',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Price',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey.shade400,
                         ),
-                        SizedBox(
-                          width: constraints.maxWidth - 10,
-                          height: constraints.maxHeight - 60 - 42,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(
-                                productController.listOfProduct.length,
-                                (index) => ProductList(
-                                    productModel:
-                                        productController.listOfProduct[index],
-                                    index: index,
-                                    onSelect: () =>
-                                        productController.selectProduct(
-                                          productController
-                                              .listOfProduct[index],
-                                        ),
-                                    onEdit: () {
-                                      productController.selectProduct(
-                                          productController
-                                              .listOfProduct[index]);
-                                      Get.to(
-                                        () => ProductForm(
-                                          formEdit: true,
-                                          onSavedComplete: () async {},
-                                        ),
-                                      );
-                                    },
-                                    onDelete: () async {
-                                      await onDeleteProduct(
-                                          productController
-                                              .listOfProduct[index],
-                                          productController.listOfProduct[index]
-                                              .categoryModel);
-                                    }),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      width: constraints.maxWidth - 10,
+                      height: constraints.maxHeight - 60,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 223, 226, 228),
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 30,
+                                    child: Text(
+                                      '#',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        'Product',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 150,
+                                    child: Center(
+                                      child: Text(
+                                        'Category',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 100,
+                                    child: Center(
+                                      child: Text(
+                                        'Price',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: constraints.maxWidth - 10,
+                            height: constraints.maxHeight - 60 - 42,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: List.generate(
+                                  productController.listOfProduct.length,
+                                  (index) => ProductList(
+                                      productModel: productController
+                                          .listOfProduct[index],
+                                      index: index,
+                                      onSelect: () =>
+                                          productController.selectProduct(
+                                            productController
+                                                .listOfProduct[index],
+                                          ),
+                                      onEdit: () {
+                                        productController.selectProduct(
+                                            productController
+                                                .listOfProduct[index]);
+                                        Get.to(
+                                          () => ProductForm(
+                                            formEdit: true,
+                                            onSavedComplete: () async {},
+                                          ),
+                                        );
+                                      },
+                                      onDelete: () async {
+                                        await onDeleteProduct(
+                                            productController
+                                                .listOfProduct[index],
+                                            productController
+                                                .listOfProduct[index]
+                                                .categoryModel);
+                                      }),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
