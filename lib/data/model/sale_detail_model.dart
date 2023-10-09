@@ -3,7 +3,7 @@ import 'dart:convert';
 class SaleDetailModel {
   final String id;
   final String productName;
-  final double qty;
+  double qty;
   final double price;
   final int discount;
   final double amount;

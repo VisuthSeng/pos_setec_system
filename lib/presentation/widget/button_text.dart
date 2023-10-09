@@ -28,6 +28,7 @@ class ButtonText extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.orangeAccent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),

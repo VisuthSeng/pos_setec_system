@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/constant/app_size.dart';
 import '../../../core/constant/font_size.dart';
 
-class TextboxSearch extends StatelessWidget {
+class TextboxSearch extends StatefulWidget {
   final String label;
   final int maxLength;
   final TextEditingController? controller;
@@ -32,6 +32,11 @@ class TextboxSearch extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<TextboxSearch> createState() => _TextboxSearchState();
+}
+
+class _TextboxSearchState extends State<TextboxSearch> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 38,
@@ -49,25 +54,25 @@ class TextboxSearch extends StatelessWidget {
                   .primaryTextTheme
                   .bodyLarge!
                   .copyWith(fontSize: FontSize.textbox, color: Colors.black),
-              keyboardType: keyboard,
-              readOnly: isReadOnly,
+              keyboardType: widget.keyboard,
+              readOnly: widget.isReadOnly,
               // enabled: isEnabled,
-              textInputAction: textInputAction,
+              textInputAction: widget.textInputAction,
               onSubmitted: (x) {
-                if (onKeyReturn != null) {
-                  onKeyReturn!();
+                if (widget.onKeyReturn != null) {
+                  widget.onKeyReturn!();
                 }
               },
 
-              focusNode: focusNode,
-              onChanged: onChanged,
-              maxLength: maxLength,
-              controller: controller,
+              focusNode: widget.focusNode,
+              onChanged: widget.onChanged,
+              maxLength: widget.maxLength,
+              controller: widget.controller,
               cursorColor: const Color.fromARGB(255, 155, 155, 155),
               decoration: InputDecoration(
                 contentPadding:
                     const EdgeInsets.only(right: 10, left: 10, bottom: 10),
-                hintText: label,
+                hintText: widget.label,
                 counterText: '',
                 border: InputBorder.none,
               ),
