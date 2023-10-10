@@ -63,6 +63,9 @@ flutter:
     - asset/icons/icon-drinks.png
     - asset/icons/icon-beverage.png
     - asset/icons/icon-noodles.png
+    - asset/icons/icon-snack.png
+    - asset/icons/icon-alcohol.png
+    - asset/icons/icon-ice-cream.png
     - asset/items/1.png
     - asset/items/2.png
     - asset/items/3.png
@@ -81,7 +84,7 @@ flutter:
     - asset/items/dasani.jpeg
     - asset/items/pepsi.webp
     - asset/items/vital.webp
-    - asset/items/sting.avif
+    - asset/items/sting.jpg
     - asset/items/pepsi-zero-sugar.webp
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

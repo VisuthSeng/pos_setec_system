@@ -38,6 +38,7 @@ class _SaleScreenState extends State<SaleScreen> {
   @override
   void initState() {
     selectedCategory = null;
+    categoryController.listOfCategory();
     listProduct.assignAll(productController.listOfProduct);
     tecSearch = TextEditingController();
     fnSearch = FocusNode();
