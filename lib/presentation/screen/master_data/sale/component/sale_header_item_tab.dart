@@ -5,14 +5,13 @@ class SaleHeaderItemTab extends StatefulWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.isActive,
     this.ontap,
     required this.color,
   });
 
   final String icon;
   final String title;
-  final bool isActive;
+
   final Function? ontap;
   final Color color;
 
@@ -33,9 +32,7 @@ class _SaleHeaderItemTabState extends State<SaleHeaderItemTab> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: widget.color,
-          border: widget.isActive
-              ? Border.all(color: Colors.deepOrangeAccent, width: 3)
-              : Border.all(color: const Color(0xff1f2029), width: 3),
+          border: Border.all(color: const Color(0xff1f2029), width: 3),
         ),
         child: Row(
           children: [

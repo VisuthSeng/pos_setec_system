@@ -8,6 +8,7 @@ class ProductModel {
   final String name;
   final double price;
   final double qty;
+  final String img;
 
   ProductModel({
     required this.id,
@@ -15,6 +16,7 @@ class ProductModel {
     required this.name,
     required this.price,
     required this.qty,
+    required this.img,
   });
 
   ProductModel copyWith({
@@ -23,6 +25,7 @@ class ProductModel {
     String? name,
     double? price,
     double? qty,
+    String? img,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -30,6 +33,7 @@ class ProductModel {
       name: name ?? this.name,
       price: price ?? this.price,
       qty: qty ?? this.qty,
+      img: img ?? this.img,
     );
   }
 
@@ -40,6 +44,7 @@ class ProductModel {
       'name': name,
       'price': price,
       'qty': qty,
+      'img': img,
     };
   }
 
@@ -50,6 +55,7 @@ class ProductModel {
       name: map['name'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       qty: map['qty']?.toDouble() ?? 0.0,
+      img: map['img'] ?? '',
     );
   }
 
@@ -60,7 +66,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, categoryModel: $categoryModel, name: $name, price: $price, qty: $qty)';
+    return 'ProductModel(id: $id, categoryModel: $categoryModel, name: $name, price: $price, qty: $qty, img: $img)';
   }
 
   @override
@@ -72,7 +78,8 @@ class ProductModel {
         other.categoryModel == categoryModel &&
         other.name == name &&
         other.price == price &&
-        other.qty == qty;
+        other.qty == qty &&
+        other.img == img;
   }
 
   @override
@@ -81,6 +88,7 @@ class ProductModel {
         categoryModel.hashCode ^
         name.hashCode ^
         price.hashCode ^
-        qty.hashCode;
+        qty.hashCode ^
+        img.hashCode;
   }
 }

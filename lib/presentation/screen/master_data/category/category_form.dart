@@ -28,9 +28,11 @@ class _CategoryFormState extends State<CategoryForm> {
   final CategoryController categoryController = Get.find();
 
   late TextEditingController tecName;
+  late TextEditingController tecImage;
   late TextEditingController tecNote;
 
   late FocusNode fnName;
+  late FocusNode fnImage;
   late FocusNode fnNote;
 
   bool errorCategoryBlank = false;
@@ -41,9 +43,11 @@ class _CategoryFormState extends State<CategoryForm> {
   @override
   void initState() {
     tecName = TextEditingController();
+    tecImage = TextEditingController();
     tecNote = TextEditingController();
 
     fnName = FocusNode();
+    fnImage = FocusNode();
     fnNote = FocusNode();
 
     if (widget.formEdit == true) {
@@ -56,9 +60,11 @@ class _CategoryFormState extends State<CategoryForm> {
   @override
   void dispose() {
     tecName.dispose();
+    tecImage.dispose();
     tecNote.dispose();
 
     fnName.dispose();
+    fnImage.dispose();
     fnNote.dispose();
 
     super.dispose();
@@ -68,6 +74,7 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: UId.getId(),
       name: tecName.text,
+      img: tecImage.text,
     );
     categoryController.saveData(model);
   }
@@ -76,6 +83,7 @@ class _CategoryFormState extends State<CategoryForm> {
     var model = CategoryModel(
       id: categoryController.selectedCategory!.id,
       name: tecName.text,
+      img: tecImage.text,
     );
     categoryController.updateData(model);
   }
@@ -92,6 +100,10 @@ class _CategoryFormState extends State<CategoryForm> {
             ),
             TextBox(
                 focusNode: fnName, controller: tecName, labelText: 'Categroy'),
+            TextBox(
+                focusNode: fnImage,
+                controller: tecImage,
+                labelText: 'Image Asset'),
           ],
         ),
       ),

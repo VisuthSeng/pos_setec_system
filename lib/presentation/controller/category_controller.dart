@@ -13,6 +13,7 @@ class CategoryController extends GetxController {
   var blankCategory = CategoryModel(
     id: '',
     name: '',
+    img: '',
   );
   late CategoryModel? selectedCategory;
 

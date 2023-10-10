@@ -17,9 +17,11 @@ class ProductController extends GetxController {
     categoryModel: CategoryModel(
       id: '',
       name: '',
+      img: '',
     ),
     price: 0,
     qty: 0,
+    img: '',
   );
   late ProductModel? selectedProduct;
   late CategoryModel categoryModel;

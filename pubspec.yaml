@@ -61,6 +61,7 @@ flutter:
     - asset/icons/icon-burger.png
     - asset/icons/icon-desserts.png
     - asset/icons/icon-drinks.png
+    - asset/icons/icon-beverage.png
     - asset/icons/icon-noodles.png
     - asset/items/1.png
     - asset/items/2.png
@@ -74,6 +75,14 @@ flutter:
     - asset/items/10.png
     - asset/items/11.png
     - asset/items/12.png
+    - asset/items/oishi.png
+    - asset/items/oishi-lemon.webp
+    - asset/items/coke.jpeg
+    - asset/items/dasani.jpeg
+    - asset/items/pepsi.webp
+    - asset/items/vital.webp
+    - asset/items/sting.avif
+    - asset/items/pepsi-zero-sugar.webp
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

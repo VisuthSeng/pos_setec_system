@@ -74,6 +74,7 @@ class _SaleScreenState extends State<SaleScreen> {
         id: UId.getId(),
         productName: model.name,
         qty: 1, // Initialize qty to 1 for a new item
+        img: model.img,
         price: model.price,
         discount: 0,
         amount: 0,
@@ -172,6 +173,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                     setState(() {
                                       listProduct.assignAll(
                                           productController.listOfProduct);
+                                      selectedCategory = null;
                                     });
                                   }),
                             ),
@@ -194,10 +196,8 @@ class _SaleScreenState extends State<SaleScreen> {
                                               model; // Update the selectedCategory based on the index
                                         });
                                       },
-                                      icon: 'asset/icons/icon-burger.png',
+                                      icon: model.img,
                                       title: model.name,
-                                      isActive: selectedCategory ==
-                                          model, // Check if this item is active based on the selectedCategory
                                       color: selectedCategory == model
                                           ? Colors.orangeAccent
                                           : const Color(0xff1f2029),
@@ -215,7 +215,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                   children: listProduct
                                       .map(
                                         (model) => SaleItem(
-                                          image: 'asset/items/1.png',
+                                          image: model.img,
                                           title: 'Original Burger',
                                           price: model.price.toString(),
                                           item: '11 item',
@@ -253,7 +253,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                   children: listOrder
                                       .map(
                                         (model) => SaleOrderItem(
-                                          image: 'asset/items/1.png',
+                                          image: model.img,
                                           title: model.productName,
                                           qty: model.qty.toString(),
                                           price: '\$ ${model.price}',

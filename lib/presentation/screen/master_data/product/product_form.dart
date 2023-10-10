@@ -41,10 +41,12 @@ class _ProductFormState extends State<ProductForm> {
   late TextEditingController tecName;
   late TextEditingController tecCategory;
   late TextEditingController tecPrice;
+  late TextEditingController tecImg;
 
   late FocusNode fnName;
   late FocusNode fnCategory;
   late FocusNode fnPrice;
+  late FocusNode fnImg;
 
   bool loading = false;
 
@@ -53,10 +55,12 @@ class _ProductFormState extends State<ProductForm> {
     tecName = TextEditingController();
     tecCategory = TextEditingController();
     tecPrice = TextEditingController();
+    tecImg = TextEditingController();
 
     fnName = FocusNode();
     fnCategory = FocusNode();
     fnPrice = FocusNode();
+    fnImg = FocusNode();
 
     if (widget.formEdit == true) {
       productModel = productController.selectedProduct!;
@@ -64,6 +68,7 @@ class _ProductFormState extends State<ProductForm> {
       categoryModel = productController.selectedProduct!.categoryModel;
       tecCategory.text = productController.selectedProduct!.categoryModel.name;
       tecPrice.text = productController.selectedProduct!.price.toString();
+      tecImg.text = productController.selectedProduct!.img;
     }
 
     super.initState();
@@ -89,6 +94,7 @@ class _ProductFormState extends State<ProductForm> {
       price: double.tryParse(tecPrice.text) ?? 0,
       qty: 0,
       categoryModel: categoryModel,
+      img: tecImg.text,
     );
 
     productController.saveData(model);
@@ -101,6 +107,7 @@ class _ProductFormState extends State<ProductForm> {
       price: double.tryParse(tecPrice.text) ?? 0,
       qty: 0,
       categoryModel: categoryModel,
+      img: tecImg.text,
     );
 
     productController.updateData(model);
@@ -142,6 +149,7 @@ class _ProductFormState extends State<ProductForm> {
                 browseCategory(context);
               },
             ),
+            TextBox(focusNode: fnImg, controller: tecImg, labelText: 'Image'),
           ],
         ),
       ),

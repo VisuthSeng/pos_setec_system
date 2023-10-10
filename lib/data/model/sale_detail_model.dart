@@ -7,6 +7,8 @@ class SaleDetailModel {
   final double price;
   final int discount;
   final double amount;
+  final String img;
+
   SaleDetailModel({
     required this.id,
     required this.productName,
@@ -14,6 +16,7 @@ class SaleDetailModel {
     required this.price,
     required this.discount,
     required this.amount,
+    required this.img,
   });
 
   SaleDetailModel copyWith({
@@ -23,6 +26,7 @@ class SaleDetailModel {
     double? price,
     int? discount,
     double? amount,
+    String? img,
   }) {
     return SaleDetailModel(
       id: id ?? this.id,
@@ -31,6 +35,7 @@ class SaleDetailModel {
       price: price ?? this.price,
       discount: discount ?? this.discount,
       amount: amount ?? this.amount,
+      img: img ?? this.img,
     );
   }
 
@@ -42,6 +47,7 @@ class SaleDetailModel {
       'price': price,
       'discount': discount,
       'amount': amount,
+      'img': img,
     };
   }
 
@@ -53,6 +59,7 @@ class SaleDetailModel {
       price: map['price']?.toDouble() ?? 0.0,
       discount: map['discount']?.toInt() ?? 0,
       amount: map['amount']?.toDouble() ?? 0.0,
+      img: map['img'] ?? '',
     );
   }
 
@@ -63,7 +70,7 @@ class SaleDetailModel {
 
   @override
   String toString() {
-    return 'SaleDetail(id: $id, productName: $productName, qty: $qty, price: $price, discount: $discount, amount: $amount)';
+    return 'SaleDetailModel(id: $id, productName: $productName, qty: $qty, price: $price, discount: $discount, amount: $amount, img: $img)';
   }
 
   @override
@@ -76,7 +83,8 @@ class SaleDetailModel {
         other.qty == qty &&
         other.price == price &&
         other.discount == discount &&
-        other.amount == amount;
+        other.amount == amount &&
+        other.img == img;
   }
 
   @override
@@ -86,6 +94,7 @@ class SaleDetailModel {
         qty.hashCode ^
         price.hashCode ^
         discount.hashCode ^
-        amount.hashCode;
+        amount.hashCode ^
+        img.hashCode;
   }
 }

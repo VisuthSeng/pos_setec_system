@@ -60,6 +60,7 @@ class _StockFormState extends State<StockForm> {
       price: productController.selectedProduct!.price,
       qty: double.tryParse(tecQty.text) ?? 0,
       categoryModel: productController.selectedProduct!.categoryModel,
+      img: '',
     );
     productController.updateData(model);
   }

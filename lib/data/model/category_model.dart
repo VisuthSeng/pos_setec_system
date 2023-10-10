@@ -1,54 +1,62 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class CategoryModel {
   final String id;
   final String name;
+  final String img;
 
   CategoryModel({
     required this.id,
     required this.name,
+    required this.img,
   });
 
   CategoryModel copyWith({
     String? id,
     String? name,
+    String? img,
   }) {
     return CategoryModel(
       id: id ?? this.id,
       name: name ?? this.name,
+      img: img ?? this.img,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+    return {
       'id': id,
       'name': name,
+      'img': img,
     };
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      img: map['img'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory CategoryModel.fromJson(String source) =>
-      CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
+      CategoryModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'CategoryModel(id: $id, name: $name)';
+  String toString() => 'CategoryModel(id: $id, name: $name, img: $img)';
 
   @override
-  bool operator ==(covariant CategoryModel other) {
+  bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name;
+    return other is CategoryModel &&
+        other.id == id &&
+        other.name == name &&
+        other.img == img;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode ^ img.hashCode;
 }

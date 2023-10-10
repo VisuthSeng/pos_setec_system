@@ -61,7 +61,7 @@ class SaleOrderItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
                     image: AssetImage(image),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitHeight,
                   ),
                 ),
               ),

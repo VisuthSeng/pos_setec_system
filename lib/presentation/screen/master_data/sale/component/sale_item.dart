@@ -41,12 +41,15 @@ class _SaleItemState extends State<SaleItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: Image.asset(
-                widget.image,
-                width: double.infinity,
-                fit: BoxFit.fill,
+            SizedBox(
+              height: 100,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: Image.asset(
+                  widget.image,
+                  width: double.infinity,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
             ),
             const SizedBox(height: 10),
