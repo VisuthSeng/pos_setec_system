@@ -2,9 +2,11 @@ import 'package:get/get.dart';
 import 'package:pos_setec_system/data/repository/category_repository.dart';
 import 'package:pos_setec_system/data/repository/customer_repository.dart';
 import 'package:pos_setec_system/data/repository/product_repository.dart';
+import 'package:pos_setec_system/data/repository/sale_repository.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
 import 'package:pos_setec_system/presentation/controller/product_controller.dart';
+import 'package:pos_setec_system/presentation/controller/sale_controller.dart';
 
 class MainBinding extends Bindings {
   @override
@@ -39,5 +41,14 @@ class MainBinding extends Bindings {
       ),
       permanent: true,
     );
+    Get.put(
+      SaleRepository(),
+      permanent: true,
+    );
+    Get.put(
+        SaleController(
+          saleRepository: Get.find(),
+        ),
+        permanent: true);
   }
 }

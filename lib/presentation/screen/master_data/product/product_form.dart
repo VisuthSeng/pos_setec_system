@@ -105,7 +105,7 @@ class _ProductFormState extends State<ProductForm> {
       id: productController.selectedProduct!.id,
       name: tecName.text,
       price: double.tryParse(tecPrice.text) ?? 0,
-      qty: 0,
+      qty: productController.selectedProduct!.qty,
       categoryModel: categoryModel,
       img: tecImg.text,
     );

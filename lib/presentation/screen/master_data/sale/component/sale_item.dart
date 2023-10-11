@@ -73,9 +73,14 @@ class _SaleItemState extends State<SaleItem> {
                   ),
                 ),
                 Text(
-                  widget.productModel.qty.toString(),
-                  style: const TextStyle(
-                    color: Colors.white60,
+                  widget.productModel.qty == 0
+                      ? 'Out of Stock'
+                      : widget.productModel.qty.toString(),
+                  style: TextStyle(
+                    color: widget.productModel.qty == 0
+                        ? Colors.red
+                        : Colors
+                            .white60, // You can use a different color for "Out of Stock".
                     fontSize: 12,
                   ),
                 ),

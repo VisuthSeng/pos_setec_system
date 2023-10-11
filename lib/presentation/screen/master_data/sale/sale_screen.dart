@@ -9,9 +9,11 @@ import 'package:pos_setec_system/presentation/screen/master_data/sale/component/
 import 'package:pos_setec_system/presentation/widget/button_text.dart';
 import 'component/sale_header.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_order_item.dart';
-
 import '../../../controller/product_controller.dart';
 import 'component/sale_item.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 class SaleScreen extends StatefulWidget {
   const SaleScreen({super.key});
@@ -30,7 +32,7 @@ class _SaleScreenState extends State<SaleScreen> {
   late CategoryModel? selectedCategory;
   late ProductModel? selectedProduct;
   List<ProductModel> listProduct = [];
-  List<SaleDetailModel> listOrder = [];
+  List<SaleDetailModel> listSaleDetail = [];
   double totalPrice = 0.0;
   double tax = 0.0;
   double grandTotal = 0.0;
@@ -59,10 +61,15 @@ class _SaleScreenState extends State<SaleScreen> {
   }
 
   void addOrder(ProductModel model) {
+    if (model.qty == 0) {
+      // Don't add items with qty == 0
+      return;
+    }
+
     // Find an item with the same productName in the listOrder
     SaleDetailModel existingItem;
     try {
-      existingItem = listOrder.firstWhere(
+      existingItem = listSaleDetail.firstWhere(
         (item) => item.productName == model.name,
       );
       // If the item exists, increment its quantity
@@ -82,14 +89,14 @@ class _SaleScreenState extends State<SaleScreen> {
       );
       totalPrice += order.price;
       calculateToGrandTotal();
-      listOrder.add(order);
+      listSaleDetail.add(order);
     }
   }
 
   void increaseOrder(SaleDetailModel model) {
     SaleDetailModel existingItem;
     try {
-      existingItem = listOrder.firstWhere(
+      existingItem = listSaleDetail.firstWhere(
         (item) => item.productName == model.productName,
       );
       // If the item exists, increment its quantity
@@ -106,7 +113,7 @@ class _SaleScreenState extends State<SaleScreen> {
   void removeOrder(SaleDetailModel model) {
     SaleDetailModel existingItem;
     try {
-      existingItem = listOrder.firstWhere(
+      existingItem = listSaleDetail.firstWhere(
         (item) => item.productName == model.productName,
       );
       // If the item exists, increment its quantity
@@ -117,7 +124,7 @@ class _SaleScreenState extends State<SaleScreen> {
       } else {
         totalPrice -= model.price;
         calculateToGrandTotal();
-        listOrder.remove(model);
+        listSaleDetail.remove(model);
       }
     } catch (e) {
       // If the item doesn't exist, add a new item to the listOrder
@@ -139,6 +146,116 @@ class _SaleScreenState extends State<SaleScreen> {
     listProduct.assignAll(productController.listAllProduct.where(
       (product) => product.categoryModel == model,
     ));
+  }
+
+  Future<void> previewInvoice() async {
+    final doc = pw.Document();
+
+    doc.addPage(
+      pw.Page(
+        margin:
+            const pw.EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 40),
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          //child: pw.Image(pw.MemoryImage(img)),
+          return pw.Padding(
+            padding: const pw.EdgeInsets.only(
+                top: -10, left: 20, right: 20, bottom: 20),
+            child: pw.Column(
+              children: [
+                pw.SizedBox(
+                  height: 30,
+                  child: pw.Expanded(
+                    child: pw.Center(
+                      child: pw.Text(
+                        'Debit Note',
+                        style: const pw.TextStyle(
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                pw.SizedBox(height: 15),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.SizedBox(height: 10),
+                    pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Debit No : No Invoice'),
+                        pw.Text('Date :   123123'),
+                      ],
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 10),
+                pw.SizedBox(
+                  height: 30,
+                  child: pw.Row(
+                    children: [
+                      pw.SizedBox(
+                        width: 260,
+                        child: pw.Text(
+                          'Container',
+                          style: const pw.TextStyle(fontSize: 13),
+                        ),
+                      ),
+                      pw.SizedBox(
+                        width: 130,
+                        child: pw.Text(
+                          'Customer',
+                          style: const pw.TextStyle(fontSize: 13),
+                        ),
+                      ),
+                      pw.SizedBox(
+                        width: 100,
+                        child: pw.Text(
+                          'Unit Price',
+                          style: const pw.TextStyle(fontSize: 13),
+                        ),
+                      ),
+                      pw.SizedBox(
+                        width: 100,
+                        child: pw.Text(
+                          'Amount',
+                          style: const pw.TextStyle(fontSize: 13),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(height: 20),
+                pw.Row(
+                  children: [
+                    pw.SizedBox(
+                      width: 300,
+                    ),
+                    pw.SizedBox(
+                      width: 190,
+                      child: pw.Text(
+                        'Total Amount :',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 100,
+                      child: pw.Text(
+                        '1000',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
+    await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async => doc.save());
   }
 
   @override
@@ -251,7 +368,7 @@ class _SaleScreenState extends State<SaleScreen> {
                             const SizedBox(height: 20),
                             Expanded(
                               child: ListView(
-                                  children: listOrder
+                                  children: listSaleDetail
                                       .map(
                                         (model) => SaleOrderItem(
                                           image: model.img,
@@ -272,7 +389,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                       )
                                       .toList()),
                             ),
-                            if (listOrder.isNotEmpty)
+                            if (listSaleDetail.isNotEmpty)
                               Expanded(
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
@@ -358,7 +475,9 @@ class _SaleScreenState extends State<SaleScreen> {
                                                 BorderRadius.circular(8),
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          previewInvoice();
+                                        },
                                         child: const Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,

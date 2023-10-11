@@ -9,7 +9,7 @@ abstract class ISaleDetailRepository {
   Future<void> deleteSaleDetail(String id);
 }
 
-class SaleRepository extends ISaleDetailRepository {
+class SaleDetailRepository extends ISaleDetailRepository {
   @override
   Future<void> deleteSaleDetail(String id) async {
     await FirestoreCollection.saleDetail.doc(id).delete();
