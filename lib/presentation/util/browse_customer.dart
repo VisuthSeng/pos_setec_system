@@ -28,10 +28,10 @@ class _BrowseCustomerState extends State<BrowseCustomer> {
   final CustomerController customerController = Get.find();
 
   CustomerModel? selectedCategory;
-  late FocusNode fnSearch;
+  // late FocusNode fnSearch;
   @override
   void initState() {
-    fnSearch = FocusNode();
+    // fnSearch = FocusNode();
     // fnSearch.requestFocus();
 
     super.initState();
@@ -39,7 +39,7 @@ class _BrowseCustomerState extends State<BrowseCustomer> {
 
   @override
   void dispose() {
-    fnSearch.dispose();
+    // fnSearch.dispose();
     super.dispose();
   }
 
@@ -89,7 +89,6 @@ class _BrowseCustomerState extends State<BrowseCustomer> {
                             SizedBox(
                               width: 180,
                               child: TextboxSearch(
-                                focusNode: fnSearch,
                                 label: AppLanguage.search,
                                 onChanged: (value) {
                                   customerController.searchData(value);

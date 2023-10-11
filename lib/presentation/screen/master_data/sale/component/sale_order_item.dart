@@ -55,8 +55,8 @@ class SaleOrderItem extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 60,
-                width: 100,
+                height: 50,
+                width: 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(

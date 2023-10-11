@@ -5,8 +5,10 @@ import 'package:pos_setec_system/data/model/category_model.dart';
 import 'package:pos_setec_system/data/model/customer_model.dart';
 import 'package:pos_setec_system/data/model/product_model.dart';
 import 'package:pos_setec_system/data/model/sale_detail_model.dart';
+import 'package:pos_setec_system/data/model/sale_model.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
+import 'package:pos_setec_system/presentation/controller/sale_controller.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/customer/customer_form.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_header_item_tab.dart';
 import 'package:pos_setec_system/presentation/util/browse_customer.dart';
@@ -33,6 +35,7 @@ class _SaleScreenState extends State<SaleScreen> {
   final ProductController productController = Get.find();
   final CategoryController categoryController = Get.find();
   final CustomerController customerController = Get.find();
+  final SaleController saleController = Get.find();
 
   late TextEditingController tecSearch;
   late TextEditingController tecCustomer;
@@ -353,6 +356,18 @@ class _SaleScreenState extends State<SaleScreen> {
         },
       ),
     );
+  }
+
+  Future<void> saveData() async {
+    var model = SaleModel(
+        id: UId.getId(),
+        invoice: 'SETEC/P0101001',
+        customerName: tecCustomer.text,
+        createAt: DateTime.now(),
+        total: totalPrice,
+        listSaleDetail: listSaleDetail);
+
+    saleController.saveData(model);
   }
 
   @override
