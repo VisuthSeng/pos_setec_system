@@ -32,7 +32,7 @@ class _BrowseCustomerState extends State<BrowseCustomer> {
   @override
   void initState() {
     fnSearch = FocusNode();
-    fnSearch.requestFocus();
+    // fnSearch.requestFocus();
 
     super.initState();
   }

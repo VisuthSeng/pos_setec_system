@@ -6,8 +6,11 @@ import 'package:pos_setec_system/data/model/customer_model.dart';
 import 'package:pos_setec_system/data/model/product_model.dart';
 import 'package:pos_setec_system/data/model/sale_detail_model.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
+import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/customer/customer_form.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_header_item_tab.dart';
 import 'package:pos_setec_system/presentation/util/browse_customer.dart';
+import 'package:pos_setec_system/presentation/widget/button_icon.dart';
 import 'package:pos_setec_system/presentation/widget/button_text.dart';
 import 'package:pos_setec_system/presentation/widget/label_textbox_browse.dart';
 import '../../../widget/pop_up_form.dart';
@@ -29,6 +32,7 @@ class SaleScreen extends StatefulWidget {
 class _SaleScreenState extends State<SaleScreen> {
   final ProductController productController = Get.find();
   final CategoryController categoryController = Get.find();
+  final CustomerController customerController = Get.find();
 
   late TextEditingController tecSearch;
   late TextEditingController tecCustomer;
@@ -268,6 +272,12 @@ class _SaleScreenState extends State<SaleScreen> {
     );
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => doc.save());
+    setState(() {
+      listSaleDetail.clear();
+      tecCustomer.clear();
+      customerModel = customerController.blankCustomer;
+    });
+    if (mounted) Navigator.of(context).pop();
   }
 
   void _showDialog(BuildContext context) {
@@ -277,13 +287,32 @@ class _SaleScreenState extends State<SaleScreen> {
         // This is the content of the dialog
         return AlertDialog(
           title: const Text('Choose Customer'),
-          content: LabelTextboxBrowse(
-            label: 'Customer',
-            controller: tecCustomer,
-            onBrowse: () {
-              browseCustomer(context);
-            },
-            isReadOnly: true,
+          content: SizedBox(
+            width: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: 180,
+                  child: LabelTextboxBrowse(
+                    height: 40,
+                    label: 'Customer',
+                    controller: tecCustomer,
+                    onBrowse: () {
+                      browseCustomer(context);
+                    },
+                    isReadOnly: true,
+                  ),
+                ),
+                ButtonIcon(
+                    width: 20,
+                    height: 50,
+                    icon: Icons.add,
+                    onPress: () {
+                      Get.to(() => const CustomerForm());
+                    })
+              ],
+            ),
           ),
           actions: <Widget>[
             Row(
@@ -301,7 +330,7 @@ class _SaleScreenState extends State<SaleScreen> {
                 ElevatedButton(
                   child: const Text('Confirm'),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    previewInvoice();
                   },
                 ),
               ],
