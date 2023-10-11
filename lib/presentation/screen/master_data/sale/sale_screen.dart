@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/core/util/Uid.dart';
 import 'package:pos_setec_system/data/model/category_model.dart';
+import 'package:pos_setec_system/data/model/customer_model.dart';
 import 'package:pos_setec_system/data/model/product_model.dart';
 import 'package:pos_setec_system/data/model/sale_detail_model.dart';
 import 'package:pos_setec_system/presentation/controller/category_controller.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_header_item_tab.dart';
+import 'package:pos_setec_system/presentation/util/browse_customer.dart';
 import 'package:pos_setec_system/presentation/widget/button_text.dart';
+import 'package:pos_setec_system/presentation/widget/label_textbox_browse.dart';
+import '../../../widget/pop_up_form.dart';
 import 'component/sale_header.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_order_item.dart';
 import '../../../controller/product_controller.dart';
@@ -27,10 +31,14 @@ class _SaleScreenState extends State<SaleScreen> {
   final CategoryController categoryController = Get.find();
 
   late TextEditingController tecSearch;
+  late TextEditingController tecCustomer;
   late FocusNode fnSearch;
+  late FocusNode fnCustomer;
 
   late CategoryModel? selectedCategory;
   late ProductModel? selectedProduct;
+
+  late CustomerModel customerModel;
   List<ProductModel> listProduct = [];
   List<SaleDetailModel> listSaleDetail = [];
   double totalPrice = 0.0;
@@ -43,13 +51,17 @@ class _SaleScreenState extends State<SaleScreen> {
     categoryController.listOfCategory();
     listProduct.assignAll(productController.listOfProduct);
     tecSearch = TextEditingController();
+    tecCustomer = TextEditingController();
     fnSearch = FocusNode();
+    fnCustomer = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
     tecSearch.dispose();
+    tecCustomer.dispose();
+    fnCustomer.dispose();
     fnSearch.dispose();
 
     super.dispose();
@@ -256,6 +268,62 @@ class _SaleScreenState extends State<SaleScreen> {
     );
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => doc.save());
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // This is the content of the dialog
+        return AlertDialog(
+          title: const Text('Choose Customer'),
+          content: LabelTextboxBrowse(
+            label: 'Customer',
+            controller: tecCustomer,
+            onBrowse: () {
+              browseCustomer(context);
+            },
+            isReadOnly: true,
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  child: const Text('Close'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  child: const Text('Confirm'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void browseCustomer(BuildContext context) {
+    PopUpForm.fromRight(
+      context: context,
+      child: BrowseCustomer(
+        onSelected: (model) {
+          setState(() {
+            customerModel = model;
+            tecCustomer.text = model.name;
+          });
+        },
+      ),
+    );
   }
 
   @override
@@ -476,7 +544,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          previewInvoice();
+                                          _showDialog(context);
                                         },
                                         child: const Row(
                                           mainAxisAlignment:
