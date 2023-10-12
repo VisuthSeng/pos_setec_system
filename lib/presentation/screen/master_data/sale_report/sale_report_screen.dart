@@ -38,6 +38,7 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    saleController.listOfSale.sort((a, b) => b.createAt.compareTo(a.createAt));
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         width: 1010,

@@ -448,7 +448,7 @@ class _SaleScreenState extends State<SaleScreen> {
   Future<void> saveData() async {
     var model = SaleModel(
         id: UId.getId(),
-        invoice: 'SETEC/P0101001',
+        invoice: 'SETEC/${UId.getId()}/',
         customerName: tecCustomer.text,
         createAt: DateTime.now(),
         total: totalPrice,

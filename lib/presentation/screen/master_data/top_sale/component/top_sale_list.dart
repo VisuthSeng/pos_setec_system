@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:pos_setec_system/data/model/sale_model.dart';
-import 'package:pos_setec_system/presentation/controller/sale_controller.dart';
+import 'package:pos_setec_system/data/model/product_top_sold.dart';
+import 'package:pos_setec_system/presentation/controller/product_top_sold_controller.dart';
 
 import '../../../../widget/button_icon.dart';
 
-class TopSaleList extends StatefulWidget {
-  final SaleModel saleModel;
-
+class SaleTopList extends StatefulWidget {
+  final ProductTopSoldModel saleModel;
   final Function onSelect;
   final Function onDelete;
   final Function onEdit;
   final int index;
-  const TopSaleList({
+  const SaleTopList({
     super.key,
     required this.saleModel,
     required this.index,
@@ -23,22 +21,11 @@ class TopSaleList extends StatefulWidget {
   });
 
   @override
-  State<TopSaleList> createState() => _TopSaleListState();
+  State<SaleTopList> createState() => _SaleTopListState();
 }
 
-class _TopSaleListState extends State<TopSaleList> {
-  final SaleController saleController = Get.find();
-  List<SaleModel> listTopSale = [];
-
-  @override
-  void initState() {
-    listTopSale.assignAll(saleController.listOfSale);
-
-    super.initState();
-  }
-
-  void topSaleProduct() {}
-
+class _SaleTopListState extends State<SaleTopList> {
+  final ProductTopSoldController productTopSoldController = Get.find();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -48,7 +35,8 @@ class _TopSaleListState extends State<TopSaleList> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: widget.saleModel == saleController.selectedSale
+          color: widget.saleModel ==
+                  productTopSoldController.selectedTopSoldProduct
               ? Colors.blue.withOpacity(0.2)
               : Colors.transparent,
           border: const Border(
@@ -76,7 +64,7 @@ class _TopSaleListState extends State<TopSaleList> {
                 width: 150,
                 child: Center(
                   child: Text(
-                    widget.saleModel.listSaleDetail[0].productName,
+                    widget.saleModel.productName,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),
@@ -87,7 +75,7 @@ class _TopSaleListState extends State<TopSaleList> {
                 width: 150,
                 child: Center(
                   child: Text(
-                    widget.saleModel.customerName,
+                    widget.saleModel.qty.toString(),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),
