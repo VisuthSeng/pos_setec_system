@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/sale_screen.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/sale_report/sale_report_screen.dart';
+import 'package:pos_setec_system/presentation/screen/master_data/top_sale/top_sale_screen.dart';
 import '../../controller/category_controller.dart';
 import '../../controller/customer_controller.dart';
 import '../../controller/product_controller.dart';
@@ -36,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
     'Product',
     'Stock',
     'Customer',
-    'Start Sale'
+    'Start Sale',
+    'Sale Report',
+    'Top Sale',
   ];
 
   int selectedItem = -1;
@@ -85,8 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else if (title == 'Start Sale') {
                       icon = Icons.sell;
                       iconColor = Colors.amberAccent;
+                    } else if (title == 'Sale Report') {
+                      icon = Icons.menu;
+                      iconColor = Colors.amberAccent;
+                    } else if (title == 'Top Sale') {
+                      icon = Icons.legend_toggle_sharp;
+                      iconColor = Colors.green;
                     }
-
                     return LeftMenuItem(
                       title: title,
                       icon: icon,
@@ -109,6 +118,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           Get.offAll(() => const CustomerScreen());
                         } else if (title == 'Start Sale') {
                           Get.offAll(() => const SaleScreen());
+                        } else if (title == 'Sale Report') {
+                          Get.offAll(() => const SaleReportScreen());
+                        } else if (title == 'Top Sale') {
+                          Get.offAll(() => const TopSaleScreen());
                         }
                       },
                     );

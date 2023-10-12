@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pos_setec_system/core/util/Uid.dart';
 import 'package:pos_setec_system/data/model/category_model.dart';
 import 'package:pos_setec_system/data/model/customer_model.dart';
@@ -51,6 +52,7 @@ class _SaleScreenState extends State<SaleScreen> {
   double totalPrice = 0.0;
   double tax = 0.0;
   double grandTotal = 0.0;
+  bool printInvoice = false;
 
   @override
   void initState() {
@@ -120,6 +122,7 @@ class _SaleScreenState extends State<SaleScreen> {
       );
       // If the item exists, increment its quantity
       if (existingItem.qty > 0) {
+        model.qty - existingItem.qty;
         existingItem.qty += 1;
         totalPrice += model.price;
         calculateToGrandTotal();
@@ -139,8 +142,11 @@ class _SaleScreenState extends State<SaleScreen> {
       if (existingItem.qty > 1) {
         totalPrice -= model.price;
         calculateToGrandTotal();
+
         existingItem.qty -= 1;
+        model.qty += 1;
       } else {
+        model.qty += 1;
         totalPrice -= model.price;
         calculateToGrandTotal();
         listSaleDetail.remove(model);
@@ -187,7 +193,7 @@ class _SaleScreenState extends State<SaleScreen> {
                   child: pw.Expanded(
                     child: pw.Center(
                       child: pw.Text(
-                        'Debit Note',
+                        'Receipt',
                         style: const pw.TextStyle(
                           fontSize: 22,
                         ),
@@ -203,8 +209,20 @@ class _SaleScreenState extends State<SaleScreen> {
                     pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
-                        pw.Text('Debit No : No Invoice'),
-                        pw.Text('Date :   123123'),
+                        pw.Text('Receipt No : No Invoice'),
+                        pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text('Customer : '),
+                            pw.Text(tecCustomer.text),
+                          ],
+                        ),
+                        pw.Text(
+                          DateFormat('dd-MM-yy').format(DateTime.now()),
+                        ),
+                        pw.Text(
+                          DateFormat('hh-mm-ss a').format(DateTime.now()),
+                        ),
                       ],
                     ),
                   ],
@@ -217,14 +235,14 @@ class _SaleScreenState extends State<SaleScreen> {
                       pw.SizedBox(
                         width: 260,
                         child: pw.Text(
-                          'Container',
+                          'Product',
                           style: const pw.TextStyle(fontSize: 13),
                         ),
                       ),
                       pw.SizedBox(
                         width: 130,
                         child: pw.Text(
-                          'Customer',
+                          'Qty',
                           style: const pw.TextStyle(fontSize: 13),
                         ),
                       ),
@@ -235,16 +253,36 @@ class _SaleScreenState extends State<SaleScreen> {
                           style: const pw.TextStyle(fontSize: 13),
                         ),
                       ),
-                      pw.SizedBox(
-                        width: 100,
-                        child: pw.Text(
-                          'Amount',
-                          style: const pw.TextStyle(fontSize: 13),
-                        ),
-                      ),
                     ],
                   ),
                 ),
+                pw.Column(
+                    children: listSaleDetail
+                        .map((model) => pw.Row(children: [
+                              pw.SizedBox(
+                                width: 260,
+                                child: pw.Text(
+                                  model.productName,
+                                  style: const pw.TextStyle(fontSize: 13),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 130,
+                                child: pw.Text(
+                                  ' ${model.qty.toString()} ',
+                                  style: const pw.TextStyle(fontSize: 13),
+                                ),
+                              ),
+                              pw.SizedBox(
+                                width: 100,
+                                child: pw.Text(
+                                  '\$ ${model.price.toString()}',
+                                  style: const pw.TextStyle(fontSize: 13),
+                                ),
+                              ),
+                              pw.SizedBox(height: 20),
+                            ]))
+                        .toList()),
                 pw.SizedBox(height: 20),
                 pw.Row(
                   children: [
@@ -252,7 +290,7 @@ class _SaleScreenState extends State<SaleScreen> {
                       width: 300,
                     ),
                     pw.SizedBox(
-                      width: 190,
+                      width: 150,
                       child: pw.Text(
                         'Total Amount :',
                         style: const pw.TextStyle(fontSize: 14),
@@ -261,12 +299,56 @@ class _SaleScreenState extends State<SaleScreen> {
                     pw.SizedBox(
                       width: 100,
                       child: pw.Text(
-                        '1000',
+                        '\$ ${totalPrice.toString()}',
                         style: const pw.TextStyle(fontSize: 14),
                       ),
                     ),
                   ],
-                )
+                ),
+                pw.SizedBox(height: 20),
+                pw.Row(
+                  children: [
+                    pw.SizedBox(
+                      width: 300,
+                    ),
+                    pw.SizedBox(
+                      width: 150,
+                      child: pw.Text(
+                        'Tax  :',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 100,
+                      child: pw.Text(
+                        '\$ ${tax.toString()}',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+                pw.SizedBox(height: 20),
+                pw.Row(
+                  children: [
+                    pw.SizedBox(
+                      width: 300,
+                    ),
+                    pw.SizedBox(
+                      width: 150,
+                      child: pw.Text(
+                        'Grand Total :',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                    pw.SizedBox(
+                      width: 100,
+                      child: pw.Text(
+                        '\$ ${grandTotal.toString()}',
+                        style: const pw.TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           );
@@ -280,11 +362,11 @@ class _SaleScreenState extends State<SaleScreen> {
       tecCustomer.clear();
       customerModel = customerController.blankCustomer;
     });
-    if (mounted) Navigator.of(context).pop();
+    if (mounted) Navigator.pop(context);
   }
 
-  void _showDialog(BuildContext context) {
-    showDialog(
+  Future<void> _showDialog(BuildContext context) async {
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         // This is the content of the dialog
@@ -332,7 +414,9 @@ class _SaleScreenState extends State<SaleScreen> {
                 ),
                 ElevatedButton(
                   child: const Text('Confirm'),
-                  onPressed: () {
+                  onPressed: () async {
+                    await saveData();
+
                     previewInvoice();
                   },
                 ),
@@ -342,6 +426,9 @@ class _SaleScreenState extends State<SaleScreen> {
         );
       },
     );
+    setState(() {
+      listProduct.assignAll(productController.listOfProduct);
+    });
   }
 
   void browseCustomer(BuildContext context) {
@@ -367,7 +454,18 @@ class _SaleScreenState extends State<SaleScreen> {
         total: totalPrice,
         listSaleDetail: listSaleDetail);
 
-    saleController.saveData(model);
+    await saleController.saveData(model);
+
+    for (var saleDetail in listSaleDetail) {
+      for (var product in listProduct) {
+        if (saleDetail.productName == product.name) {
+          // Subtract the quantity from the saleDetail
+          var qty = product.qty - saleDetail.qty;
+          // You can also update any other properties as needed
+          productController.updateData(product.copyWith(qty: qty));
+        }
+      }
+    }
   }
 
   @override
@@ -450,7 +548,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                           price: model.price.toString(),
                                           item: '11 item',
                                           productModel: model,
-                                          onPress: () {
+                                          onPress: () async {
                                             setState(() {
                                               addOrder(model);
                                             });

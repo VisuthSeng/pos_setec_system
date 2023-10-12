@@ -32,7 +32,7 @@ class SaleController extends GetxController {
     super.onInit();
   }
 
-  void selectCategory(SaleModel? model) {
+  void selectSaleReport(SaleModel? model) {
     selectedSale = model;
     listOfSale.refresh();
   }
