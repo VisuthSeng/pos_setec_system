@@ -4,7 +4,7 @@ import 'dart:convert';
 class ProductTopSoldModel {
   final String id;
   final String productName;
-  final int qty;
+  final double qty;
   final DateTime date;
 
   ProductTopSoldModel({
@@ -17,7 +17,7 @@ class ProductTopSoldModel {
   ProductTopSoldModel copyWith({
     String? id,
     String? productName,
-    int? qty,
+    double? qty,
     DateTime? date,
   }) {
     return ProductTopSoldModel(
@@ -41,7 +41,7 @@ class ProductTopSoldModel {
     return ProductTopSoldModel(
       id: map['id'] as String,
       productName: map['productName'] as String,
-      qty: map['qty'] as int,
+      qty: map['qty'] as double,
       date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
     );
   }
@@ -53,7 +53,7 @@ class ProductTopSoldModel {
 
   @override
   String toString() {
-    return 'ProductTopSold(id: $id, productName: $productName, qty: $qty, date: $date)';
+    return 'ProductTopSoldModel(id: $id, productName: $productName, qty: $qty, date: $date)';
   }
 
   @override

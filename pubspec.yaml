@@ -80,7 +80,13 @@ flutter:
     - asset/items/10.png
     - asset/items/11.png
     - asset/items/12.png
-    - asset/items/oishi.png
+    - asset/items/ABC.png
+    - asset/items/anchor_strong.png
+    - asset/items/anchor.png
+    - asset/items/budweiser.jpg
+    - asset/items/jinro-strawberry.jpg
+    - asset/items/singha.jpg
+    - asset/items/tiger-soju.jpg
     - asset/items/oishi-lemon.webp
     - asset/items/coke.jpeg
     - asset/items/dasani.jpeg
@@ -88,6 +94,22 @@ flutter:
     - asset/items/vital.webp
     - asset/items/sting.jpg
     - asset/items/pepsi-zero-sugar.webp
+    - asset/items/ice-cream_chocolate.jpg
+    - asset/items/ice-cream_rainbow.jpg
+    - asset/items/ice-cream_setec.jpg
+    - asset/items/ice-cream_strawberry.jpg
+    - asset/items/ice-cream_vanilla.jpg
+    - asset/items/mee-krob.jpeg
+    - asset/items/hanami.jpeg
+    - asset/items/bento.jpg
+    - asset/items/potato-chips.jpg
+    - asset/items/seaweed.jpg
+    - asset/items/stick-thai.jpg
+    - asset/items/Yakult.png
+    - asset/items/yogurt.png
+    - asset/items/oishi.png
+    
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

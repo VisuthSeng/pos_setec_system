@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pos_setec_system/data/model/product_top_sold.dart';
 import 'package:pos_setec_system/presentation/controller/product_top_sold_controller.dart';
 
@@ -76,6 +77,17 @@ class _SaleTopListState extends State<SaleTopList> {
                 child: Center(
                   child: Text(
                     widget.saleModel.qty.toString(),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 14,
+                        ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 150,
+                child: Center(
+                  child: Text(
+                    DateFormat('dd-MM-yy').format(widget.saleModel.date),
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 14,
                         ),

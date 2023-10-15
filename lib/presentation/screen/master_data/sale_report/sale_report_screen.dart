@@ -17,6 +17,11 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
 
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
+
+  List<String> day = [
+    'Last Week',
+    'Last month',
+  ];
   @override
   void initState() {
     tecSearch = TextEditingController();
@@ -45,141 +50,170 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
         height: constraints.maxHeight,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: Obx(
-            () => SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    FormListTitle(
-                      title: 'Sale Report',
-                      record: saleController.listOfSale.length,
-                      fnSearch: fnSearch,
-                      tecSearch: tecSearch,
-                      onSearch: (search) {
-                        saleController.searchData(search);
-                      },
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.shade400,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
+          body: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: const Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  FormListTitle(
+                    title: 'Sale Report',
+                    record: saleController.listOfSale.length,
+                    fnSearch: fnSearch,
+                    tecSearch: tecSearch,
+                    onSearch: (search) {
+                      saleController.searchData(search);
+                    },
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey.shade400,
                       ),
-                      width: constraints.maxWidth - 10,
-                      height: constraints.maxHeight - 60,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 223, 226, 228),
-                              borderRadius: BorderRadius.circular(3),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    width: constraints.maxWidth - 10,
+                    height: constraints.maxHeight - 60,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 223, 226, 228),
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 20.0,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 20.0,
-                              ),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: 30,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                  child: Text(
+                                    '#',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                  child: Center(
                                     child: Text(
-                                      '#',
+                                      'Invoice',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge!
                                           .copyWith(
-                                              fontSize: 13,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 150,
-                                    child: Center(
-                                      child: Text(
-                                        'Invoice',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 150,
+                                  child: Center(
+                                    child: Text(
+                                      'Customer Name',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Center(
+                                    child: Text(
+                                      'Total',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Center(
+                                    child: PopupMenuButton<int>(
+                                      // Use int to represent the index
+                                      offset: const Offset(0, 50),
+                                      onSelected: (int selectedIndex) async {
+                                        // Handle the selected date here using selectedDate
+                                      },
+                                      itemBuilder: (context) {
+                                        return List.generate(day.length,
+                                            (index) {
+                                          return PopupMenuItem<int>(
+                                            value:
+                                                index, // Use the index as the value
+                                            child: Text(day[index]),
+                                          );
+                                        });
+                                      },
+                                      child: SizedBox(
+                                        width: 80,
+                                        height: 40,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Date', // You can set the initial value here
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge!
+                                                  .copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                            const Icon(Icons.arrow_drop_down),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 150,
-                                    child: Center(
-                                      child: Text(
-                                        'Customer Name',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
+                                ),
+                                SizedBox(
+                                  width: 100,
+                                  child: Center(
+                                    child: Text(
+                                      'Time',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 100,
-                                    child: Center(
-                                      child: Text(
-                                        'Total',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 100,
-                                    child: Center(
-                                      child: Text(
-                                        'Date',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 100,
-                                    child: Center(
-                                      child: Text(
-                                        'Time',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            width: constraints.maxWidth - 10,
-                            height: constraints.maxHeight - 60 - 42,
-                            child: SingleChildScrollView(
-                              child: Column(
+                        ),
+                        SizedBox(
+                          width: constraints.maxWidth - 10,
+                          height: constraints.maxHeight - 60 - 42,
+                          child: SingleChildScrollView(
+                            child: Obx(
+                              () => Column(
                                 children: List.generate(
                                   saleController.listOfSale.length,
                                   (index) => SaleReportList(
@@ -208,12 +242,12 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

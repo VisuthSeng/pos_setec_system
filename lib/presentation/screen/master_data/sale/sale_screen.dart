@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pos_setec_system/core/util/Uid.dart';
-import 'package:pos_setec_system/data/model/category_model.dart';
-import 'package:pos_setec_system/data/model/customer_model.dart';
-import 'package:pos_setec_system/data/model/product_model.dart';
-import 'package:pos_setec_system/data/model/sale_detail_model.dart';
-import 'package:pos_setec_system/data/model/sale_model.dart';
-import 'package:pos_setec_system/presentation/controller/category_controller.dart';
-import 'package:pos_setec_system/presentation/controller/customer_controller.dart';
-import 'package:pos_setec_system/presentation/controller/sale_controller.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/customer/customer_form.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_header_item_tab.dart';
-import 'package:pos_setec_system/presentation/util/browse_customer.dart';
-import 'package:pos_setec_system/presentation/widget/button_icon.dart';
-import 'package:pos_setec_system/presentation/widget/button_text.dart';
-import 'package:pos_setec_system/presentation/widget/label_textbox_browse.dart';
+import 'package:pos_setec_system/presentation/controller/product_top_sold_controller.dart';
+import '../../../../core/util/Uid.dart';
+import '../../../../data/model/category_model.dart';
+import '../../../../data/model/customer_model.dart';
+import '../../../../data/model/product_model.dart';
+import '../../../../data/model/product_top_sold.dart';
+import '../../../../data/model/sale_detail_model.dart';
+import '../../../../data/model/sale_model.dart';
+import '../../../controller/category_controller.dart';
+import '../../../controller/customer_controller.dart';
+import '../../../controller/sale_controller.dart';
+import '../customer/customer_form.dart';
+import 'component/sale_header_item_tab.dart';
+import '../../../util/browse_customer.dart';
+import '../../../widget/button_icon.dart';
+import '../../../widget/button_text.dart';
+import '../../../widget/label_textbox_browse.dart';
 import '../../../widget/pop_up_form.dart';
 import 'component/sale_header.dart';
-import 'package:pos_setec_system/presentation/screen/master_data/sale/component/sale_order_item.dart';
+import 'component/sale_order_item.dart';
 import '../../../controller/product_controller.dart';
 import 'component/sale_item.dart';
 import 'package:pdf/pdf.dart';
@@ -34,6 +36,7 @@ class SaleScreen extends StatefulWidget {
 
 class _SaleScreenState extends State<SaleScreen> {
   final ProductController productController = Get.find();
+  final ProductTopSoldController productTopSoldController = Get.find();
   final CategoryController categoryController = Get.find();
   final CustomerController customerController = Get.find();
   final SaleController saleController = Get.find();
@@ -48,6 +51,7 @@ class _SaleScreenState extends State<SaleScreen> {
 
   late CustomerModel customerModel;
   List<ProductModel> listProduct = [];
+  List<ProductTopSoldModel> listProductTopSold = [];
   List<SaleDetailModel> listSaleDetail = [];
   double totalPrice = 0.0;
   double tax = 0.0;
@@ -59,6 +63,7 @@ class _SaleScreenState extends State<SaleScreen> {
     selectedCategory = null;
     categoryController.listOfCategory();
     listProduct.assignAll(productController.listOfProduct);
+    listProductTopSold.assignAll(productTopSoldController.listOfProduct);
     tecSearch = TextEditingController();
     tecCustomer = TextEditingController();
     fnSearch = FocusNode();
@@ -144,9 +149,7 @@ class _SaleScreenState extends State<SaleScreen> {
         calculateToGrandTotal();
 
         existingItem.qty -= 1;
-        model.qty += 1;
       } else {
-        model.qty += 1;
         totalPrice -= model.price;
         calculateToGrandTotal();
         listSaleDetail.remove(model);
@@ -416,7 +419,6 @@ class _SaleScreenState extends State<SaleScreen> {
                   child: const Text('Confirm'),
                   onPressed: () async {
                     await saveData();
-
                     previewInvoice();
                   },
                 ),
@@ -464,6 +466,34 @@ class _SaleScreenState extends State<SaleScreen> {
           // You can also update any other properties as needed
           productController.updateData(product.copyWith(qty: qty));
         }
+      }
+    }
+
+    for (var saleDetail in listSaleDetail) {
+      bool productFound = false;
+      for (var productTopSold in listProductTopSold) {
+        if (saleDetail.productName == productTopSold.productName) {
+          // Subtract the quantity from the saleDetail
+          var qty = productTopSold.qty + saleDetail.qty;
+          // You can also update any other properties as needed
+          productTopSoldController
+              .updateData(productTopSold.copyWith(qty: qty));
+          productFound = true;
+          break; // No need to continue searching once the product is found
+        } // If the product from saleDetail wasn't found in listProductTopSold, add it.
+      }
+
+      if (!productFound) {
+        // Create a new product with the quantity from saleDetail
+        var qty = saleDetail.qty;
+        var newProduct = ProductTopSoldModel(
+          productName: saleDetail.productName,
+          qty: qty,
+          id: UId.getId(),
+          date: DateTime.now(),
+        );
+        listProductTopSold.add(newProduct);
+        productTopSoldController.saveData(newProduct);
       }
     }
   }
