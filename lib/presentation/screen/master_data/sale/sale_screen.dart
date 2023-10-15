@@ -453,7 +453,7 @@ class _SaleScreenState extends State<SaleScreen> {
         invoice: 'SETEC/${UId.getId()}/',
         customerName: tecCustomer.text,
         createAt: DateTime.now(),
-        total: totalPrice,
+        total: grandTotal,
         listSaleDetail: listSaleDetail);
 
     await saleController.saveData(model);

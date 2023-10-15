@@ -35,6 +35,7 @@ dependencies:
   firebase_analytics: ^10.5.0
   firebase_auth: ^4.10.0
   firebase_core: ^2.16.0
+  fl_chart: ^0.64.0
   flutter:
     sdk: flutter
   get: ^4.6.6
@@ -108,8 +109,6 @@ flutter:
     - asset/items/Yakult.png
     - asset/items/yogurt.png
     - asset/items/oishi.png
-    
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

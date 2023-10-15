@@ -121,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (title == 'Sale Report') {
                           Get.offAll(() => const SaleReportScreen());
                         } else if (title == 'Top Sale') {
-                          Get.offAll(() => const TopSaleScreen());
+                          Get.offAll(
+                            () => const TopSaleScreen(),
+                          );
                         }
                       },
                     );
