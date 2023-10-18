@@ -57,7 +57,7 @@ class _TopSaleScreenState extends State<TopSaleScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     FormListTitle(
-                      title: 'Top Product',
+                      title: 'Top Sale',
                       fnSearch: fnSearch,
                       tecSearch: tecSearch,
                       record: productTopSoldController.listOfProduct.length,

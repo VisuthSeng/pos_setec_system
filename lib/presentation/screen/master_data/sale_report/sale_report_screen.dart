@@ -18,14 +18,13 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
   late TextEditingController tecSearch;
   late FocusNode fnSearch;
 
-  List<String> day = [
-    'Last Week',
-    'Last month',
-  ];
+  List<String> day = ['Last Week', 'Last month', 'Now'];
   @override
   void initState() {
+    saleController.listOfSale.sort((a, b) => b.createAt.compareTo(a.createAt));
     tecSearch = TextEditingController();
     fnSearch = FocusNode();
+
     super.initState();
   }
 
@@ -37,13 +36,24 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
     super.dispose();
   }
 
+  void showLastWeekSales() {
+    saleController.filterSalesForLastWeek();
+  }
+
+  void showLastMonthSales() {
+    saleController.filterSalesForLastMonth();
+  }
+
+  void showFullSalesList() {
+    saleController.resetAndSortSalesListHighToLow();
+  }
+
   Future<void> onDeleteSaleReport(SaleModel sale) async {
     saleController.deleteData(sale.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    saleController.listOfSale.sort((a, b) => b.createAt.compareTo(a.createAt));
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         width: 1010,
@@ -154,6 +164,13 @@ class _SaleReportScreenState extends State<SaleReportScreen> {
                                       // Use int to represent the index
                                       offset: const Offset(0, 50),
                                       onSelected: (int selectedIndex) async {
+                                        if (selectedIndex == 0) {
+                                          showLastWeekSales();
+                                        } else if (selectedIndex == 1) {
+                                          showLastMonthSales();
+                                        } else {
+                                          showFullSalesList();
+                                        }
                                         // Handle the selected date here using selectedDate
                                       },
                                       itemBuilder: (context) {

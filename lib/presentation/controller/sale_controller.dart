@@ -32,6 +32,47 @@ class SaleController extends GetxController {
     super.onInit();
   }
 
+  void resetAndSortSalesListHighToLow() {
+    listOfSale.assignAll(listAllSale);
+    // Sort the list by the createAt property, in descending order (high to low)
+    listOfSale.sort((a, b) => b.createAt.compareTo(a.createAt));
+  }
+
+  void filterSalesForLastWeek() {
+    final DateTime now = DateTime.now();
+    final DateTime lastWeek = now.subtract(const Duration(days: 7));
+
+    // Filter the sales for the last week
+    List<SaleModel> filteredSales =
+        listAllSale.where((sale) => sale.createAt.isAfter(lastWeek)).toList();
+
+    // Sort the filtered sales from low to high
+    filteredSales.sort((a, b) => a.createAt.compareTo(b.createAt));
+
+    // Update the list of sales with the sorted and filtered sales
+    listOfSale.assignAll(filteredSales);
+  }
+
+  void filterSalesForLastMonth() {
+    final DateTime now = DateTime.now();
+    final DateTime lastMonthStart = DateTime(now.year, now.month - 1, 1);
+    final DateTime lastMonthEnd =
+        DateTime(now.year, now.month, 1).subtract(const Duration(days: 1));
+
+    // Filter the sales for the last month
+    List<SaleModel> filteredSales = listAllSale.where((sale) {
+      final saleDate = sale.createAt;
+      return saleDate.isAfter(lastMonthStart) &&
+          saleDate.isBefore(lastMonthEnd);
+    }).toList();
+
+    // Sort the filtered sales from low to high
+    filteredSales.sort((a, b) => a.createAt.compareTo(b.createAt));
+
+    // Update the list of sales with the sorted and filtered sales
+    listOfSale.assignAll(filteredSales);
+  }
+
   void selectSaleReport(SaleModel? model) {
     selectedSale = model;
     listOfSale.refresh();
