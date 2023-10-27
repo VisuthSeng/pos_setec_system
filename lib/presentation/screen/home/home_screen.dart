@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pos_setec_system/presentation/screen/end/end_screen.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale/sale_screen.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/sale_report/sale_report_screen.dart';
 import 'package:pos_setec_system/presentation/screen/master_data/top_sale/top_sale_screen.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'Start Sale',
     'Sale Report',
     'Top Sale',
+    'Finish Presentation'
   ];
 
   int selectedItem = -1;
@@ -95,6 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else if (title == 'Top Sale') {
                       icon = Icons.legend_toggle_sharp;
                       iconColor = Colors.green;
+                    } else if (title == 'Finish Presentation') {
+                      icon = Icons.safety_divider_sharp;
+                      iconColor = Colors.green;
                     }
                     return LeftMenuItem(
                       title: title,
@@ -123,6 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (title == 'Top Sale') {
                           Get.offAll(
                             () => const TopSaleScreen(),
+                          );
+                        } else if (title == 'Finish Presentation') {
+                          Get.offAll(
+                            () => const EndedScreen(),
                           );
                         }
                       },
