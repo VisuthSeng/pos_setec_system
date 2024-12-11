@@ -7,7 +7,7 @@ import 'package:pos_setec_system/presentation/screen/setec/pos_system_setec_scre
 import 'package:pos_setec_system/presentation/screen/home/home_screen.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,8 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.fade,
       debugShowCheckedModeBanner: false,
       title: 'SETEC POS SYSTEM',
-      theme: ThemeData(
-          scaffoldBackgroundColor: Colors.deepPurple,
-          primarySwatch: Colors.blue,
-          primaryColor: Colors.blue),
+      theme:
+          ThemeData(scaffoldBackgroundColor: Colors.deepPurple, primarySwatch: Colors.blue, primaryColor: Colors.blue),
       builder: (context, page) => HomeScreen(
         child: page!,
       ),

@@ -5,10 +5,10 @@ class FormBrowseBottom extends StatelessWidget {
   final Function()? onCancel;
   final Function()? onChoose;
   const FormBrowseBottom({
-    Key? key,
+    super.key,
     this.onCancel,
     this.onChoose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

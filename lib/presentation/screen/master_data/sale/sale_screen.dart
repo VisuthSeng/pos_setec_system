@@ -181,14 +181,12 @@ class _SaleScreenState extends State<SaleScreen> {
 
     doc.addPage(
       pw.Page(
-        margin:
-            const pw.EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 40),
+        margin: const pw.EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 40),
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
           //child: pw.Image(pw.MemoryImage(img)),
           return pw.Padding(
-            padding: const pw.EdgeInsets.only(
-                top: -10, left: 20, right: 20, bottom: 20),
+            padding: const pw.EdgeInsets.only(top: -10, left: 20, right: 20, bottom: 20),
             child: pw.Column(
               children: [
                 pw.SizedBox(
@@ -358,8 +356,7 @@ class _SaleScreenState extends State<SaleScreen> {
         },
       ),
     );
-    await Printing.layoutPdf(
-        onLayout: (PdfPageFormat format) async => doc.save());
+    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => doc.save());
     setState(() {
       listSaleDetail.clear();
       tecCustomer.clear();
@@ -392,13 +389,13 @@ class _SaleScreenState extends State<SaleScreen> {
                     isReadOnly: true,
                   ),
                 ),
-                ButtonIcon(
-                    width: 20,
-                    height: 50,
-                    icon: Icons.add,
-                    onPress: () {
-                      Get.to(() => const CustomerForm());
-                    })
+                // ButtonIcon(
+                //     width: 20,
+                //     height: 50,
+                //     icon: Icons.add,
+                //     onPress: () {
+                //       Get.to(() => const CustomerForm());
+                //     })
               ],
             ),
           ),
@@ -477,8 +474,7 @@ class _SaleScreenState extends State<SaleScreen> {
           // Subtract the quantity from the saleDetail
           var qty = productTopSold.qty + saleDetail.qty;
           // You can also update any other properties as needed
-          productTopSoldController
-              .updateData(productTopSold.copyWith(qty: qty));
+          productTopSoldController.updateData(productTopSold.copyWith(qty: qty));
           productFound = true;
           break; // No need to continue searching once the product is found
         } // If the product from saleDetail wasn't found in listProductTopSold, add it.
@@ -507,6 +503,7 @@ class _SaleScreenState extends State<SaleScreen> {
             ? const SizedBox.shrink()
             : Container(
                 width: constraints.maxWidth,
+                height: constraints.maxHeight, // Add explicit height
                 color: Colors.black,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -518,9 +515,7 @@ class _SaleScreenState extends State<SaleScreen> {
                         padding: const EdgeInsets.only(left: 10),
                         child: Column(
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             SaleHeader(
                               title: 'SETEC MART',
                               subTitle: '10/09/2023',
@@ -530,8 +525,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                   tooltip: 'All Product',
                                   onPress: () {
                                     setState(() {
-                                      listProduct.assignAll(
-                                          productController.listOfProduct);
+                                      listProduct.assignAll(productController.listOfProduct);
                                       selectedCategory = null;
                                     });
                                   }),
@@ -541,52 +535,44 @@ class _SaleScreenState extends State<SaleScreen> {
                               padding: const EdgeInsets.symmetric(vertical: 24),
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
-                                children: categoryController.listOfCategory
-                                    .asMap()
-                                    .entries
-                                    .map(
-                                  (entry) {
-                                    final model = entry.value;
-                                    return SaleHeaderItemTab(
-                                      ontap: () {
-                                        setState(() {
-                                          loadProductsByCategory(model);
-                                          selectedCategory =
-                                              model; // Update the selectedCategory based on the index
-                                        });
-                                      },
-                                      icon: model.img,
-                                      title: model.name,
-                                      color: selectedCategory == model
-                                          ? Colors.orangeAccent
-                                          : const Color(0xff1f2029),
-                                    );
-                                  },
-                                ).toList(),
+                                children: categoryController.listOfCategory.asMap().entries.map((entry) {
+                                  final model = entry.value;
+                                  return SaleHeaderItemTab(
+                                    ontap: () {
+                                      setState(() {
+                                        loadProductsByCategory(model);
+                                        selectedCategory = model;
+                                      });
+                                    },
+                                    icon: model.img,
+                                    title: model.name,
+                                    color: selectedCategory == model ? Colors.orangeAccent : const Color(0xff1f2029),
+                                  );
+                                }).toList(),
                               ),
                             ),
-                            SizedBox(
-                              height: constraints.maxHeight - 161,
+                            Expanded(
+                              // Wrap GridView with Expanded
                               child: GridView.count(
-                                  crossAxisCount: 4,
-                                  childAspectRatio:
-                                      0.7, // Adjust this value as needed
-                                  children: listProduct
-                                      .map(
-                                        (model) => SaleItem(
-                                          image: model.img,
-                                          title: 'Original Burger',
-                                          price: model.price.toString(),
-                                          item: '11 item',
-                                          productModel: model,
-                                          onPress: () async {
-                                            setState(() {
-                                              addOrder(model);
-                                            });
-                                          },
-                                        ),
-                                      )
-                                      .toList()),
+                                crossAxisCount: 4,
+                                childAspectRatio: 0.7,
+                                children: listProduct
+                                    .map(
+                                      (model) => SaleItem(
+                                        image: model.img,
+                                        title: 'Original Burger',
+                                        price: model.price.toString(),
+                                        item: '11 item',
+                                        productModel: model,
+                                        onPress: () async {
+                                          setState(() {
+                                            addOrder(model);
+                                          });
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
                           ],
                         ),
@@ -599,140 +585,146 @@ class _SaleScreenState extends State<SaleScreen> {
                         padding: const EdgeInsets.only(right: 5),
                         child: Column(
                           children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            const SizedBox(height: 20),
                             SaleHeader(
-                                title: 'Order',
-                                subTitle: 'Table 8',
-                                widget: Container()),
+                              title: 'Order',
+                              subTitle: 'Table 8',
+                              widget: Container(),
+                            ),
                             const SizedBox(height: 20),
                             Expanded(
-                              child: ListView(
-                                  children: listSaleDetail
-                                      .map(
-                                        (model) => SaleOrderItem(
-                                          image: model.img,
-                                          title: model.productName,
-                                          qty: model.qty.toString(),
-                                          price: '\$ ${model.price}',
-                                          remove: () {
-                                            setState(() {
-                                              removeOrder(model);
-                                            });
-                                          },
-                                          add: () {
-                                            setState(() {
-                                              increaseOrder(model);
-                                            });
-                                          },
-                                        ),
-                                      )
-                                      .toList()),
-                            ),
-                            if (listSaleDetail.isNotEmpty)
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(14),
-                                    color: const Color(0xff1f2029),
+                              child: Column(
+                                // Wrap with Column
+                                children: [
+                                  Expanded(
+                                    // Order list takes remaining space
+                                    child: ListView(
+                                      children: listSaleDetail
+                                          .map(
+                                            (model) => SaleOrderItem(
+                                              image: model.img,
+                                              title: model.productName,
+                                              qty: model.qty.toString(),
+                                              price: '\$ ${model.price}',
+                                              remove: () {
+                                                setState(() {
+                                                  removeOrder(model);
+                                                });
+                                              },
+                                              add: () {
+                                                setState(() {
+                                                  increaseOrder(model);
+                                                });
+                                              },
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                  if (listSaleDetail.isNotEmpty)
+                                    Container(
+                                      // Total section at bottom
+                                      padding: const EdgeInsets.all(20),
+                                      margin: const EdgeInsets.symmetric(vertical: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: const Color(0xff1f2029),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min, // Use minimum space needed
                                         children: [
-                                          const Text(
-                                            'Subtotal',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                'Subtotal',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                '\$ $totalPrice',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            '\$ $totalPrice',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
+                                          const SizedBox(height: 20),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                'Tax',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                '\$ $tax',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.symmetric(vertical: 20),
+                                            height: 2,
+                                            width: double.infinity,
+                                            color: Colors.white,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                'Grand Total',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                '\$ $grandTotal',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 30),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white,
+                                              backgroundColor: Colors.deepOrange,
+                                              padding: const EdgeInsets.symmetric(vertical: 8),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              _showDialog(context);
+                                            },
+                                            child: const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.print, size: 16),
+                                                SizedBox(width: 6),
+                                                Text('Print Bills'),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 20),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Tax',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                          Text(
-                                            '\$ $tax',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 20),
-                                        height: 2,
-                                        width: double.infinity,
-                                        color: Colors.white,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Grand Total',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                          Text(
-                                            '\$ $grandTotal',
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 30),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          foregroundColor: Colors.white,
-                                          backgroundColor: Colors.deepOrange,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 8),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          _showDialog(context);
-                                        },
-                                        child: const Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.print, size: 16),
-                                            SizedBox(width: 6),
-                                            Text('Print Bills')
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
+                                ],
                               ),
+                            ),
                           ],
                         ),
                       ),

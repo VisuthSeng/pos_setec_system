@@ -19,7 +19,7 @@ import '../../widget/top_nav.dart';
 class HomeScreen extends StatefulWidget {
   final Widget child;
 
-  const HomeScreen({Key? key, required this.child}) : super(key: key);
+  const HomeScreen({super.key, required this.child});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -58,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Responsive(
       tablet: Scaffold(
         key: scaffoldKey,
-        appBar: topNavigationBar(
-            context, scaffoldKey), // Make sure this function returns an AppBar
+        appBar: topNavigationBar(context, scaffoldKey), // Make sure this function returns an AppBar
         backgroundColor: const Color(0xffE6EFFD),
         body: Row(
           children: [
@@ -105,9 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: title,
                       icon: icon,
                       iconColor: iconColor,
-                      bgColor: selectedItem == index
-                          ? Colors.blue.withOpacity(0.2)
-                          : const Color(0xffFFFFFF),
+                      bgColor: selectedItem == index ? Colors.blue.withOpacity(0.2) : const Color(0xffFFFFFF),
                       onSelected: () {
                         setState(() {
                           selectedItem = index;

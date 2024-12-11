@@ -4,10 +4,10 @@ class ButtonSave extends StatelessWidget {
   final bool loading;
   final void Function() onPressed;
   const ButtonSave({
-    Key? key,
+    super.key,
     this.loading = false,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,7 @@ class ButtonSave extends StatelessWidget {
       onPressed: onPressed,
       child: Tooltip(
         message: 'Save',
-        child: loading == false
-            ? const Icon(Icons.edit, color: Colors.white)
-            : const CircularProgressIndicator(),
+        child: loading == false ? const Icon(Icons.edit, color: Colors.white) : const CircularProgressIndicator(),
       ),
     );
   }
